@@ -1,0 +1,22 @@
+ALTER TABLE `employee_salary` ADD `payment_type` ENUM('Cash','Cheque','Pay Order','Online Transfer') NOT NULL DEFAULT 'Cash' AFTER `basic_salary`;
+
+ALTER TABLE `employee_salary` ADD `ref_no` VARCHAR(50) NOT NULL AFTER `payment_type`;
+
+ALTER TABLE `employee_salary` ADD `id_department` INT(11) NOT NULL AFTER `employee_id`;
+
+
+ALTER TABLE `employees` ADD `status` ENUM('Active','Inactive') NOT NULL DEFAULT 'Active' AFTER `basic_salary`;
+
+INSERT INTO `sub_menu` (`id_sub_menu`, `main_menu_id`, `sub_menu_name`, `menu_status`, `created_by`, `created_on`) VALUES (NULL, '2', 'Staff Attendance', 'Yes', NULL, '2017-09-28 00:54:07');
+
+CREATE TABLE `employee_attendance` (                                                      
+                       `id_attendance` int(11) NOT NULL AUTO_INCREMENT,                                        
+                       `employee_id` int(11) DEFAULT NULL,                                                     
+                       `id_department` int(11) DEFAULT NULL,                                                   
+                       `status` char(1) DEFAULT NULL,                                                          
+                       `attendace_date` date DEFAULT NULL,                                                     
+                       `attendance_time` varchar(50) DEFAULT NULL,                                             
+                       `created_by` int(11) DEFAULT NULL,                                                      
+                       `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,  
+                       PRIMARY KEY (`id_attendance`)                                                           
+                     ) ENGINE=InnoDB AUTO_INCREMENT=2675 DEFAULT CHARSET=utf8   
