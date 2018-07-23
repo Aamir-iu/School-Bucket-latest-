@@ -347,11 +347,11 @@ $cakeDescription = 'Online School Management System';
             </li>
              <?php endif; ?> 
             
-             <?php  if(isset($Organization['Inquiry Report']) && $Organization['Inquiry Report'] === 'Yes'): ?> 
+             <!-- <?php  if(isset($Organization['Inquiry Report']) && $Organization['Inquiry Report'] === 'Yes'): ?> 
             <li <?php if($this->request->param('controller')==='Inquiry' && $this->request->param('action')==='inquiryreport'){echo 'class="active"';} ?>>
                  <?= $this->Html->link(__('Inquiry Report'), ['controller' => 'Inquiry', 'action' => 'inquiryreport']) ?>
             </li>
-            <?php endif; ?> 
+            <?php endif; ?>  -->
             
             <!-- <?php  if(isset($Organization['Classes and Sections']) && $Organization['Classes and Sections'] === 'Yes'): ?>
             <li <?php if($this->request->param('controller')==='ClassesSections' && $this->request->param('action')==='index'  || $this->request->param('controller')==='ClassesSections' && $this->request->param('action')==='edit' ){echo 'class="active"';} ?>>
