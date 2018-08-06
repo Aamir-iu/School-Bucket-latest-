@@ -182,6 +182,17 @@
                                         </ul>
                                     </div>
                                     <!-- /.box-body -->
+                                    <!-- <li class="list-group-item">
+                                                <b>Certificates</b> <a class="pull-right"><input type="button" id="cer"   name="cer" value="" style="border:solid 1px;text-align:center;width:50px;"></a>
+                                            </li> -->
+                                            <!-- <a href="#" id='filepath'  onclick="document.getElementById('uploadr').click(); return false"></a> -->
+
+                                            <label for="avatar">Certificate(if any)</label>
+                                         <div>
+                                           
+                                           <input type="file" onchange="readURL_(this);" id="uploadrecord" name="file2" />
+                                           
+                                         </div>
                                 </div>
                             </div>
                             <!-- /.col -->
@@ -762,11 +773,30 @@
                         .width(127);
                 //.height(200);
                 imageupload();
+                //recordupload();
             };
 
             reader.readAsDataURL(input.files[0]);
         }
     }
+
+    function readURL_(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#uploadrecord')
+                        .attr('src', e.target.result)
+                        .width(127);
+                //.height(200);
+                //imageupload();
+                uploadrecord();
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
     ///   get roll_no
     function get_roll_no() {
         var id_class = $("#class_id option:selected").val();
@@ -847,6 +877,7 @@
         $('#email').val('');
         $('#inputExperience').val('');
         $('#upload').val('');
+        $('#uploadrecord').val('');
         $('#imgpath').html('<?php echo $this->Html->image('students_images/avatar-1.jpg', ['alt' => 'user Picture', 'class' => 'profile-user-img img-responsive img-circle', 'id' => 'blah']); ?>');
         get_roll_no();
         $("#dues_tab").addClass("hidden");
@@ -903,6 +934,7 @@
                     $('#cc').val(last_id);
                     $('#fmc').val(fcode);
                     updateimage();
+                    uploadrecord();
 
                     $("#dues_tab").removeClass("hidden");
                 } else {
@@ -956,6 +988,9 @@
         for (var i = 0; i < file_data.length; i++) {
             fd.append("file", file_data[i]);
         }
+        console.log(file_data);
+        console.log($('input[type="file"]'));
+        console.log("shit scnee2");
         var other_data = $('forget-form').serializeArray();
         $.each(other_data, function (key, input) {
             fd.append(input.name, input.value);
@@ -982,6 +1017,35 @@
                     toastr.warning(result[0], result[1]);
                 }
 
+            }
+        });
+    }
+    function uploadrecord() {
+        var fd = new FormData();
+        var file_data = $('input[name="file2"]')[0].files; // for multiple files
+        console.log(file_data);
+        console.log($('input[type="file"]'));
+        console.log("shit scnee");
+        for (var i = 0; i < file_data.length; i++) {
+            fd.append("file2", file_data[i]);
+        }
+        var other_data = $('forget-form').serializeArray();
+        $.each(other_data, function (key, input) {
+            fd.append(input.name, input.value);
+        });
+        var id = $('#cc').val();
+        console.log(fd);
+        $.ajax({
+            type: "POST",
+            url: "<?php echo $this->Url->build(['controller' => 'Registration', 'action' => 'uploadrecord']); ?>/" + id,
+            dataType: 'json',
+            cache: false,
+            async: false,
+            data: fd, //only input,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $("#filename2").val(data.fileName);
             }
         });
     }

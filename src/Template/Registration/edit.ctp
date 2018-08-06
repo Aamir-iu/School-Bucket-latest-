@@ -1,6 +1,16 @@
  <?= $this->Html->css('../plugins/timepicker/bootstrap-timepicker.min.css') ?> 
 <?= $this->Html->css('../plugins/datepicker/datepicker3.css') ?> 
 <?= $this->Form->create($registration,array('type'=>'file')) ?>
+<?php
+     function url(){
+      
+        $currentPath = $_SERVER['PHP_SELF']; 
+        $pathInfo = pathinfo($currentPath); 
+        $hostName = $_SERVER['HTTP_HOST']; 
+        $protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,5))=='https://'?'https://':'http://';
+        return $protocol.$hostName.$pathInfo['dirname']."/";
+    }
+?>
 <!-- Main content -->
     <section class="content">
 
@@ -64,6 +74,7 @@
               <li class="active"><a href="#registration" data-toggle="tab">Registration Details</a></li>
               <li><a href="#personal" data-toggle="tab">Personal Details</a></li>
               <li><a href="#contact" data-toggle="tab">Contact Details</a></li>
+              <li><a href="#record" data-toggle="tab">Certificate Details</a></li>
             </ul>
             <div class="form-body form-horizontal form-bordered form-row-stripped">
             <fieldset
@@ -359,12 +370,43 @@
                   </div>
                  
                  
+                  
+            
+              </div>
+              <div class="tab-pane" id="record">
+                <br />
+                <div class="btn-group pull-right">
+                  <!-- <div class="col-sm-11 "> -->
+                        <div class="action" style="margin-bottom: 28px;">
+                            <a  href="#" onclick="document.getElementById('recordupload').click(); return false" >
+                                <h2 class="btn btn-sm btn-warning">
+                                  <i class="fa fa-upload"> Upload</i> 
+                                </h2> 
+                              </a>
+                               
+                                <h2 class="btn btn-sm btn-danger" onclick="deleteme();" value="'<?php echo $registration->id_registartion; ?>'" style="cursor: pointer;">
+                                  <i class="fa fa-trash">Delete</i>
+                                </h2>
+                              
+                               
+                            <!-- </div> -->
+                        </div>
+                    </div>
+                    <section class="content">
+             
+                        <div class="form-group"><?php echo $this->Html->image('students_images/'.$registration->record, ['alt' => 'No Record Found', 'class' => 'profile-user-img img-responsive', 'id' => 'recordd']); ?> 
+                        </div>
+                        <input type="file" id="recordupload" onchange="readURL_(this);" name="file2" style="visibility: hidden; width: 1px; height: 1px" multiple />   
+
+                    </section>
                   <div class="form-group">
                     <div class="col-sm-11 ">
                       <?= $this->Form->button(__('<i class="fa fa-floppy-o"></i> Update'), ['onclick'=>'validate_form();', 'class' => 'btn btn-danger pull-right', 'escape' => false]) ?>
                     </div>
                   </div>
-            
+
+    </div>
+                
               </div>
               <!-- /.tab-pane -->
                </fieldset>
@@ -419,6 +461,20 @@
                         .attr('src', e.target.result)
                         .width(127);
                 //.height(200);
+            };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+    } 
+    function readURL_(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#recordd')
+                        .attr('src', e.target.result)
+                        .width(300);
+                // .height(500);
             };
 
                 reader.readAsDataURL(input.files[0]);
@@ -526,6 +582,183 @@
             'success'
           );
         
+    }
+    function deleteme(id){
+         swal({
+            title: 'Are you sure?',
+            text: "you want to delete!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then(function (result) {
+            if (result) {
+              console.log(result);
+                if (id > 0) {
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo $this->Url->build(['controller' => 'Registration', 'action' => 'deleteme']); ?>",
+                        dataType: 'json',
+                        cache: false,
+                        async: false,
+                        data: {id: id,pic:pic},
+                        success: function (data) {
+                            var result = data.msg.split("|");
+                              console.log(result);
+                            if (result[0] === "Success") {
+                                toastr.success(result[0], result[1]);
+                                location.reload();
+                            } else {
+                                toastr.error(result[0], result[1]);
+                            }
+                        }
+                    });
+                }
+            }
+           swal(
+            'Deleted!',
+            'Record has been deleted.',
+            'success'
+          )
+        
+        });
+    }
+    
+    function loadmodal() {
+
+        $('#add-fee').modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+        });
     } 
     
-</script>   
+</script> 
+<style>
+    
+ .hovereffect {
+    width: 100%;
+    height: 100%;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    cursor: default;
+}
+.hovereffect .overlay {
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+    left: 0;
+  top: auto;
+  bottom: 0;
+  padding: 1em;
+  height: 4.75em;
+  background: #79FAC4;
+  color: #3c4a50;
+  -webkit-transition: -webkit-transform 0.35s;
+  transition: transform 0.35s;
+  -webkit-transform: translate3d(0,100%,0);
+  transform: translate3d(0,100%,0);
+  visibility: hidden;
+
+}
+
+.hovereffect img {
+    display: block;
+    position: relative;
+  -webkit-transition: -webkit-transform 0.35s;
+  transition: transform 0.35s;
+}
+
+.hovereffect:hover img {
+-webkit-transform: translate3d(0,-10%,0);
+  transform: translate3d(0,-10%,0);
+}
+
+.hovereffect h2 {
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    font-size: 17px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.6);
+  float: left;
+  margin: 0px;
+  display: inline-block;
+}
+
+.hovereffect a.info {
+    display: inline-block;
+    text-decoration: none;
+    padding: 7px 14px;
+    text-transform: uppercase;
+  color: #fff;
+  border: 1px solid #fff;
+  margin: 50px 0 0 0;
+  background-color: transparent;
+}
+.hovereffect a.info:hover {
+    box-shadow: 0 0 5px #fff;
+}
+
+
+.hovereffect p.icon-links a {
+  float: right;
+  color: #3c4a50;
+  font-size: 1.4em;
+}
+
+.hovereffect:hover p.icon-links a:hover,
+.hovereffect:hover p.icon-links a:focus {
+  color: #252d31;
+}
+
+.hovereffect h2,
+.hovereffect p.icon-links a {
+  -webkit-transition: -webkit-transform 0.35s;
+  transition: transform 0.35s;
+  -webkit-transform: translate3d(0,200%,0);
+  transform: translate3d(0,200%,0);
+  visibility: visible;
+}
+
+.hovereffect p.icon-links a span:before {
+  display: inline-block;
+  padding: 8px 10px;
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.hovereffect:hover .overlay,
+.hovereffect:hover h2,
+.hovereffect:hover p.icon-links a {
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+}
+
+.hovereffect:hover h2 {
+  -webkit-transition-delay: 0.05s;
+  transition-delay: 0.05s;
+}
+
+.hovereffect:hover p.icon-links a:nth-child(3) {
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+}
+
+.hovereffect:hover p.icon-links a:nth-child(2) {
+  -webkit-transition-delay: 0.15s;
+  transition-delay: 0.15s;
+}
+
+.hovereffect:hover p.icon-links a:first-child {
+  -webkit-transition-delay: 0.2s;
+  transition-delay: 0.2s;
+}
+Close
+</style>  

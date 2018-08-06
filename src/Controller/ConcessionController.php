@@ -8,6 +8,7 @@ use App\Controller\AppController;
  *
  * @property \App\Model\Table\ConcessionTable $Concession
  */
+
 class ConcessionController extends AppController
 {
 
@@ -16,8 +17,37 @@ class ConcessionController extends AppController
     {
         $concessiontbl = TableRegistry::get('concession');
         $concession = $concessiontbl->find()->contain(['Registration']);
+        $classes_sectionsble = TableRegistry::get('classes_sections');
+        $class               = $classes_sectionsble->find('all'); 
+        $concession = $concession->join(
+                   [    'table' => 'students_master_details',
+                        'type' => 'INNER',
+                        'conditions' => 'students_master_details.registration_id = concession.registration_id'
+                   ]);
 
-        $this->set(compact('concession'));
+        
+        if (isset($_GET['class_id'])){
+            $concession->where(['students_master_details.class_id '=> $_GET['class_id']]);
+            /*echo "<pre>";
+            print_r($concession);
+            echo "<pre"; 
+            exit();*/
+ 
+        }
+        else{
+
+        }
+        // print_r($_REQUEST);
+        // exit();
+
+
+
+
+/*echo "<pre>";
+print_r($concession);
+echo "<pre"; 
+exit();*/
+        $this->set(compact('concession','class'));
         $this->set('_serialize', ['concession']);
     }
 
@@ -27,7 +57,7 @@ class ConcessionController extends AppController
         $action = $this->request->params['action'];
 
         // The add and index actions are always allowed.
-        if (in_array($action, ['index','add','edit','delete','studentinfo','view','adjust'])&& $this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3) {
+        if (in_array($action, ['index','add','edit','delete','studentinfo','view','adjust','stude'])&& $this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3) {
             return true;
         }
         // All other actions require an id.
@@ -39,7 +69,9 @@ class ConcessionController extends AppController
     
     public function view($id = null)
     {
+
         $table = TableRegistry::get('concession');
+        $mastertable = TableRegistry::get('students_master_details');
         $concession = $table->find()->hydrate(false)
             ->join([
                    [   'table' => 'registration',
@@ -49,11 +81,23 @@ class ConcessionController extends AppController
                    [   'table' => 'fee_types',
                        'type' => 'INNER',
                        'conditions' => 'fee_types.id_fee_type = concession.fee_type_id'
-                   ]
+                   ],
+                   [    'table' => 'students_master_details',
+                        'type' => 'INNER',
+                        'conditions' => 'students_master_details.registration_id = concession.registration_id'
+                   ],
+                   [   
+                        'table' => 'classes_sections',
+                         'alias' => 'cs',
+                        'type' => 'INNER',
+                        'conditions' => 'cs.id_class = students_master_details.class_id'
+                    ]
                ]);
         
         $concession->select(['id_concession','registration_id','amount','from_date','to_date']);
         $concession->select(['sname'=>'registration.student_name','fname'=>'registration.father_name']);
+        $concession->select(['clasid'=>'students_master_details.class_id']);
+      
         $concession->select(['fee_type'=>'fee_types.fee_type_name']);
         if ($id == 1){
            // $concession->where(['concession_type'=>$id]);
@@ -244,10 +288,16 @@ class ConcessionController extends AppController
                             [   'table' => 'fee_heads',
                                 'type' => 'INNER',
                                 'conditions' => 'fee_heads.class_id = students_master_details.class_id'
+                            ],
+                            [   
+                                'table' => 'classes_sections',
+                                'type' => 'INNER',
+                                'conditions' => 'classes_sections.id_class = students_master_details.class_id'
                             ]
                         ]);
         
         $registration->select(['student_name'=>'registration.student_name','father_name'=>'registration.father_name']);
+        $registration->select(['clasname'=>'classes_sections.class_name']);
         $registration->select(['current_fee'=>'fee_heads.class_fees','class_id']);
         $registration->where(['registration_id'=>$id]);
         $registration->andwhere(['fee_type_id'=>$fee_type]);
@@ -280,5 +330,15 @@ class ConcessionController extends AppController
         $msg = "Success|Concession has been adjusted";
         $this->set(compact('msg'));
         $this->set('_serialize', ['msg']);
+    }
+    public function students(){
+        
+        
+       $classes_sectionsble = TableRegistry::get('classes_sections');
+       $class               = $classes_sectionsble->find('all'); 
+        
+       $this->set(compact('class'));
+       $this->set('_serialize', ['class']); 
+        
     }
 }

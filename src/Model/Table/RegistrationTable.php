@@ -40,7 +40,7 @@ class RegistrationTable extends Table
         
         
         $this->hasMany('exam_results', [
-            'foreignKey' => 'registration_id'
+            'foreignKey' => 'id_registration'
         ]);
       
         

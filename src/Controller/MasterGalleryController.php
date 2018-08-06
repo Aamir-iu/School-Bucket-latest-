@@ -26,16 +26,16 @@ class MasterGalleryController extends AppController {
     }
 
     public function index() {
-        $path = "img/photo_gallery";
+        $path = "/var/www/html/SMS_Latest/webroot/img/photo_gallery";
         if(!is_dir($path)) {
            mkdir($path);
         }        
-        $path = "img/org";
+        $path = "/var/www/html/SMS_Latest/webroot/img/org";
         if(!is_dir($path)) {
             mkdir($path);
         }
         
-        $files = glob('img/org/*'); // get all file names
+        $files = glob('/var/www/html/SMS_Latest/webroot/img/org/*'); // get all file names
         foreach($files as $file){ // iterate files
           if(is_file($file))
             unlink($file); // delete file
@@ -136,7 +136,7 @@ class MasterGalleryController extends AppController {
                         ->where(['id_gallery_details' => $id])
                         ->execute();
         if ($query) {
-            unlink('img/photo_gallery/'.$pic);
+            unlink('/var/www/html/SMS_Latest/webroot/img/photo_gallery/'.$pic);
             $msg = 'Success|The photo has been deleted.';
         } else {
             $msg = 'Error|The master gallery could not be deleted. Please, try again.';
@@ -280,10 +280,10 @@ class MasterGalleryController extends AppController {
                     imagecopyresampled($thumb, $src, $x, $y, 0, 0, $w, $h, $w, $h);
 
 
-                    $save($thumb, 'img/org/' . $newname);
+                    $save($thumb, '/var/www/html/SMS_Latest/webroot/img/org/' . $newname);
                     imagedestroy($thumb);
                     imagedestroy($src);
-                    $src = $create('img/org/' . $newname);
+                    $src = $create('/var/www/html/SMS_Latest/webroot/img/org/' . $newname);
 
                     $sizes = [
                         300
@@ -296,7 +296,7 @@ class MasterGalleryController extends AppController {
 
                         imagecopyresampled($nthumb, $src, 0, 0, 0, 0, $size, $size, $s, $s);
 
-                        $pathtosave = 'img/photo_gallery/' . $newname;
+                        $pathtosave = '/var/www/html/SMS_Latest/webroot/img/photo_gallery/' . $newname;
                         if ($resource['type'] == 'image/png') {
                             $qu = 9;
                         } else {

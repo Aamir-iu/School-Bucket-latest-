@@ -400,7 +400,9 @@
                         mhtml += "<td>" + mdata[x]['registration_id'] + "</td>";
                         mhtml += "<td>" + mdata[x]['sname'] + "</td>";
                         mhtml += "<td>" + mdata[x]['fname'] + "</td>";
-                        mhtml += "<td><select class='form-control' style='height:30px;' id='attendace_status' name='attendace_status'><option value='"+ mdata[x]['registration_id'] +"|P'>Present</option><option value='"+ mdata[x]['registration_id'] +"|A'>Absent</option><option value='"+ mdata[x]['registration_id'] +"|L'>leave</option></select></td>";
+                        /*mhtml += "<td><select class='form-control' style='height:30px;' id='attendace_status' name='attendace_status'><option value='"+ mdata[x]['registration_id'] +"|P'>Present</option><option value='"+ mdata[x]['registration_id'] +"|A'>Absent</option><option value='"+ mdata[x]['registration_id'] +"|L'>leave</option></select></td>";*/
+                        mhtml += "<td><form style='height:30px;' id='attendace_status' ><input type='radio' name='attendace_status' checked='checked' value='"+ mdata[x]['registration_id'] +"|P'>P<input type='radio' name='attendace_status' value='"+ mdata[x]['registration_id'] +"|A'>A<input type='radio' name='attendace_status' value='"+ mdata[x]['registration_id'] +"|L'>L</form></td>";
+                        /*mhtml += "<td> <input type='radio' name='gender' value='male'  checked='checked'> Male<br> </td> "*/
                         mhtml += '</tr>';
                     }
                     $("#attedancetable tbody").append(mhtml);
@@ -411,6 +413,7 @@
             }
         });
     }
+
 
     function loadmodal() {
 
@@ -426,7 +429,7 @@
    function add_attendace(){
         imageOverlay('#attedancetable', 'show');
         var att = [];
-            $('select[name=attendace_status] option:selected').each(function(i, v) {
+            $('input[name=attendace_status]:checked').each(function(i, v) {
                 att.push($(this).val()) ;
         });
        
@@ -638,3 +641,6 @@
     
 
 </script>
+<style type="text/css"> 
+   input[type="radio"]{margin: 10px 10px};} 
+</style>

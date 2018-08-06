@@ -2647,6 +2647,7 @@ CREATE TABLE `registration` (
   `religion` varchar(50) DEFAULT NULL,
   `active` char(1) DEFAULT 'Y',
   `image` varchar(200) DEFAULT 'avatar-1.jpg',
+  `record` varchar(200) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `created_by` int(11) DEFAULT NULL,
   `created_on` timestamp NULL DEFAULT NULL,

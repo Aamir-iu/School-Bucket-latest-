@@ -5,8 +5,28 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-             
            <div class="btn-group pull-right">
+                                    <div  class="col-md-7">
+
+                                        <div class="form-group">
+                                            <label style="position: absolute;left: -64px;top: 7px;">Select Class</label>
+                                            <select class="form-control" id="class_id"  data-placeholder="Select Class" name="classess">
+                                               <option value=""
+                                                        >
+                                                      ---
+
+                                                      </option> 
+                                                <?php foreach ($class as $class): ?> 
+                                                      <option value="<?php echo ($class->id_class);?>"
+                                                      <?php 
+                                                      if(isset($_GET['class_id']) && $_GET['class_id'] == $class->id_class){ echo 'selected'; } ?>  >
+                                                      <?php echo $class->class_name; ?>
+
+                                                      </option> 
+                                                <?php endforeach; ?>    
+                                            </select>
+                                        </div>
+                                      </div>
                   <button type="button" class="btn btn-success">Action</button>
                   <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
                     <span class="caret"></span>
@@ -18,15 +38,18 @@
                     <li> <a href="javascript:void(0);"  onclick="loadmodal_adjust();"><?= __('Adjust Concessions') ?></a></li>
                     
                   </ul>
+
            </div>
                 
             </div>
+
+
             <!-- /.box-header -->
             <div class="box-body">
               <table id="userstable" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                    <th>Reg. ID</th>
+                    <th>Reg. ID</th>  
                     <th>Student's Name</th>
                     <th>Father's Name</th>
                     <th>Fee Amount</th>
@@ -43,7 +66,8 @@
                       
                     
                     <td><?= $concession->registration_id ?></td>
-                    <td><?= h($concession->registration['student_name']) ?></td>
+                    
+                    <td><?= $concession->registration['student_name'] ?></td>
                      <td><?= h($concession->registration['father_name']) ?></td>
                     <td><?= $this->Number->format($concession->amount) ?></td>
                     <td><?= $this->Number->format($concession->fine) ?></td>
@@ -60,6 +84,7 @@
                 </tr>
                   <?php endforeach; ?>
                 </tfoot>
+              </tbody>
               </table>
             </div>
             <!-- /.box-body -->
@@ -137,13 +162,29 @@
   <?= $this->Html->script('../plugins/datatables/jquery.dataTables.min.js') ?>
   <?= $this->Html->script('../plugins/datatables/dataTables.bootstrap.min.js') ?>
     
-  <?= $this->Html->script('datatable.js') ?>  
+  <?= $this->Html->script('datatable.js') ?> 
+
 <script>
+  //$(document).ready(function() {
   $(function () {
+    //$(".classess").reload();
+
     $("#userstable").DataTable();
+    //$("#class_id").html();
     
   });
-  
+  //filter for the concession class-wise
+  $(document).on("change","#class_id",function(){
+
+    var class_id = $('#class_id option:selected').val();
+    
+      window.location = "/concession?class_id="+class_id;
+      if("/concession?class_id="+class_id==null){
+      window.location = "/concession";
+    }else{
+
+    }    
+  });
    function delete_concession(id,rid) {
 
        swal({

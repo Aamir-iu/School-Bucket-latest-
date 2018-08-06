@@ -7,7 +7,7 @@
             <div class="box">
                 <div class="box-header">
 
-                    <h3 class="box-title">Daily Expanse</h3>
+                    <h3 class="box-title">Daily Expense</h3>
                     <div class="btn-group pull-right">
                         <div class="actions" style="margin-bottom: 28px;">
                             <a  href="#add-account" onclick="loadmodal();" title="Add Fees" class="btn btn-block btn-success">
@@ -23,7 +23,7 @@
                             <tr>
                             <tr role="row" class="heading">
                                 <th width="10%">Voucher#</th>
-                                <th width="20%">Expanse Desc.</th>
+                                <th width="20%">Expense Desc.</th>
                                 <th width="10%">Amount</th>
                                 <th width="20%">Created_By</th>
                                 <th width="20%">Created_On</th>
@@ -73,7 +73,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <div class="box-header">
-                    <strong>Daily Expanse </strong>
+                    <strong>Daily Expense </strong>
                </div>
             </div>
             <div class="modal-body">
@@ -176,7 +176,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <div class="box-header">
-                    <strong>Edit Daily Expanse </strong>
+                    <strong>Edit Daily Expense </strong>
                </div>
             </div>
             <div class="modal-body">

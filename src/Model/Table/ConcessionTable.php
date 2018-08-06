@@ -40,6 +40,9 @@ class ConcessionTable extends Table
         $this->belongsTo('Registration', [
             'foreignKey' => 'registration_id'
         ]);
+        $this->belongsTo('StudentsMasterDetails', [
+            'foreignKey' => 'registration_id'
+        ]);
         
        
     }

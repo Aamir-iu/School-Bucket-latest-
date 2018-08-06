@@ -574,3 +574,9 @@ table td {
     vertical-align: top;
     word-break: break-all;
 }
+
+
+.box-mang{
+    padding:0;
+    margin:0;
+}

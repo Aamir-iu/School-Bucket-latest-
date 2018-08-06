@@ -83,7 +83,7 @@ class ExamResultNormalController extends AppController
         $Subjects->select(['min_marks']);
         $Subjects->where(['class_id'=>$class_id]);
         $Subjects->andwhere(['exam_type_id'=>$exam_type_id]);
-        //$Subjects->orderAsc('order_id');
+        //$Subjects->orderAsc('registration_id');
 
         $subjectDetails = $Subjects->first();
         $min_marks =  $subjectDetails['min_marks'];
@@ -148,7 +148,7 @@ class ExamResultNormalController extends AppController
                     $query->andwhere(['shift_id'=>$shift_id]);
                     $query->andwhere(['exam_type_id'=>$exam_type_id]);
                     $query->andwhere(['registration_id'=>$row['registration_id']]); 
-                    $query->orderAsc('exam_result_normal.order_id');
+                    $query->orderAsc('exam_result_normal.registration_id');
                     $details = array('details'=>$query->ToArray());
 
                     $query = $GO_table->find()->hydrate(false);
@@ -183,7 +183,7 @@ class ExamResultNormalController extends AppController
         $Subjects->select(['sub'=>'short_name','sub_desc'=>'subject_desc']);
         $Subjects->where(['class_id'=>$class_id]);
         $Subjects->andwhere(['exam_type_id'=>$session_id]); /// examl_type_id
-        $Subjects->orderAsc('exam_marks_details.order_id');
+        $Subjects->orderAsc('exam_marks_details.registration_id');
         $subjectDetails = $Subjects->toArray();    
         
         $table = TableRegistry::get('exam_result_normal');
@@ -209,7 +209,7 @@ class ExamResultNormalController extends AppController
         $query->select(['class'=>'SS.class_name','shift'=>'shift.shift_name','exam_result_normal.class_id','exam_result_normal.shift_id']);
         $query->select(['gr_no'=>'registration.gr']);
         $query->distinct('exam_result_normal.registration_id');
-        $query->orderAsc('exam_result_normal.order_id');
+        $query->orderAsc('exam_result_normal.registration_id');
         $query->where(['exam_result_normal.class_id'=>$class_id]);
         $query->andwhere(['exam_result_normal.shift_id'=>$shift_id]);
         //$query->andwhere(['students_master_details.session_id'=>$session_id]);
@@ -224,7 +224,7 @@ class ExamResultNormalController extends AppController
             $query->where(['class_id'=>$class_id]);
             $query->andwhere(['shift_id'=>$shift_id]);
             $query->andwhere(['registration_id'=>$row['registration_id']]);
-            $query->orderAsc('exam_result_normal.order_id');
+            $query->orderAsc('exam_result_normal.registration_id');
             $ressult = $query->toArray();
             
             if($ressult){

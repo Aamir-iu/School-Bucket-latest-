@@ -166,10 +166,10 @@
                             <table id="attedancetable"  class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th width="20%">Employee ID</th>
-                                        <th width="40%">Employee Name</th>
+                                        <th width="15%">Employee ID</th>
+                                        <th width="30%">Employee Name</th>
                                         <th width="20%">Attendance Time</th>
-                                        <th width="20%">Attendance Status</th>
+                                        <th width="35%">Attendance Status</th>
 
                                     </tr>
                                 </thead>
@@ -431,7 +431,10 @@
                         
                         
                         
-                        mhtml += "<td><select class='form-control' style='height:30px;' id='attendace_status' name='attendace_status'><option value='P'>Present</option><option value='A'>Absent</option><option value='L'>leave</option><option value='T'>late</option></select></td>";
+                        /*mhtml += "<td><select class='form-control' style='height:30px;' id='attendace_status' name='attendace_status'><option value='P'>Present</option><option value='A'>Absent</option><option value='L'>leave</option><option value='T'>late</option></select></td>";
+                        mhtml += '</tr>';*/
+                        mhtml += "<td><form style='height:30px;' id='attendace_status' ><input type='radio' name='attendace_status' checked='checked' value='P'>Present<input type='radio' name='attendace_status' value='A'>Absent<input type='radio' name='attendace_status' value='L'>Leave<input type='radio' name='attendace_status' value='T'>Late</form></td>";
+                        /*mhtml += "<td> <input type='radio' name='gender' value='male'  checked='checked'> Male<br> </td> "*/
                         mhtml += '</tr>';
                     }
                     $("#attedancetable tbody").append(mhtml);
@@ -460,6 +463,7 @@
    function add_attendace(){
         imageOverlay('#attedancetable', 'show');
         var department_id = $('#mdepart_id option:selected').val();
+
         var att_date = $('#due_date').val();
         var TableData;
         TableData = storeFeeTblValues()
@@ -495,7 +499,7 @@
             TableData[row] = {
                 "emp_id": $(tr).find('td:eq(0)').text()
                 , "time": $(tr).find('td:eq(2)>div>input').val()
-                , "status": $(tr).find('td:eq(3)>select option:selected').val()
+                , "status": $(tr).find('td:eq(3)>form input:checked').val()
                
                 
             }
@@ -662,3 +666,6 @@
     
 //Attention: [name]  is absent from Institute today, please submit the cause of absent at institute office.
 </script>
+<style type="text/css"> 
+   input[type="radio"]{margin: 5px 5px};} 
+</style>

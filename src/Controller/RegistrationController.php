@@ -41,6 +41,8 @@ class RegistrationController extends AppController
         $fee_typesble = TableRegistry::get('fee_types');
         $feetype               = $fee_typesble->find('all');
         $feetype->where(['status_active'=>'Y']);
+
+
         
        $this->set(compact('registration','classes','session','campuses','inquiry','feetype','class_name'));
      
@@ -93,7 +95,7 @@ class RegistrationController extends AppController
         if (in_array($action, ['index','add','edit','getrollno',
                                 'transferstudents','tranfer','getfmc',
                                 'inactive','delete','transferstudent',
-                                'view','imageupload','updateimage',
+                                'view','imageupload','updateimage','uploadrecord','deleteme',
                                 'indexAjax','students','getbysearch','generatedues','sendNotification'])&& $this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3) {
             return true;
         }
@@ -348,13 +350,42 @@ class RegistrationController extends AppController
                 $tmp = explode(".", $fileName);
                 $extension = end($tmp);
                 
-                $uploadPath = 'img/students_images/';
+                $uploadPath = WWW_ROOT . 'img/students_images/';
+
                 $uploadFile = $uploadPath.$newname.".jpg";
                 $insertindb = $newname.".jpg";
                 move_uploaded_file($this->request->data['file']['tmp_name'],$uploadFile);
                 $registration->image = $insertindb;    
              }
-                 
+
+             if(!empty($this->request->data['file2']['tmp_name'])){
+                
+                $fileName = $this->request->data['file2']['name'];
+                $image_info = getimagesize($this->request->data['file2']['tmp_name']);
+                $image_width = $image_info[0];
+                $image_height = $image_info[1];
+                $file_type    = $image_info['mime'];
+
+                if($file_type != "image/jpg" && $file_type != "image/png" && $file_type != "image/jpeg"
+                   && $file_type != "image/gif" && $file_type != "image/bmp" && $file_type != "image/JPG" && $file_type != "image/JPEG") {
+                   $this->Flash->error(__('Sorry, only JPG, JPEG, PNG & GIF files are allowed.'));
+                   return $this->redirect(['action' => 'index']);
+                }
+
+
+                $newname = $this->request->data['student_name'].$this->request->data['contact1'];
+                $tmp = explode(".", $fileName);
+                $extension = end($tmp);
+                
+                $uploadPath =WWW_ROOT . 'img/students_images/';
+                $uploadFile = $uploadPath.$newname.".jpg";
+                $insertindb = $newname.".jpg";
+                move_uploaded_file($this->request->data['file2']['tmp_name'],$uploadFile);
+                $registration->record = $insertindb;    
+             }
+
+
+
             $registration->dob = date("Y-m-d H:i:s", strtotime($this->request->data['dob']));
             $registration->doa = date("Y-m-d H:i:s", strtotime($this->request->data['doa']));
            
@@ -415,6 +446,7 @@ class RegistrationController extends AppController
         
         
     }
+    
     public function getrollno(){
         
          if ($this->request->is(['post'])) {    
@@ -478,6 +510,8 @@ class RegistrationController extends AppController
         $this->set('_serialize', ['msg','fileName']);
         
     }
+
+   
     public function updateimage($id = null){
        
          if(!empty($this->request->data['file']['tmp_name'])){
@@ -489,7 +523,7 @@ class RegistrationController extends AppController
                 $tmp = explode(".", $fileName);
                 $extension = end($tmp);
                 
-                $uploadPath = 'img/students_images/';
+                $uploadPath = WWW_ROOT . 'img/students_images/';
                 $uploadFile = $uploadPath.$newname.".jpg";
                 $insertindb = $newname.".jpg";
                 move_uploaded_file($this->request->data['file']['tmp_name'],$uploadFile);
@@ -517,6 +551,74 @@ class RegistrationController extends AppController
        $this->set('_serialize', ['msg']); 
         
     }
+    public function uploadrecord($id = null)
+    {
+       
+        /*print_r($_FILES);
+        print_r($_REQUEST);
+        exit;*/
+        if(!empty($this->request->data['file2']['tmp_name'])){
+                
+                $fileName = $this->request->data['file2']['name'];
+                $image_info = getimagesize($this->request->data['file2']['tmp_name']);
+    
+                $newname = rand(1000,5000).'-'.$id;
+                $tmp = explode(".", $fileName);
+                $extension = end($tmp);
+                
+                $uploadPath = WWW_ROOT . 'img/students_images/';
+                $uploadFile = $uploadPath.$newname.".jpg";
+                $insertindb = $newname.".jpg";
+                move_uploaded_file($this->request->data['file2']['tmp_name'],$uploadFile);
+                //$registration->image = $insertindb;
+                $registrationtable = TableRegistry::get('registration');    
+                $query = $registrationtable->query();
+                $query->update()
+                    ->set(['record' => $insertindb])
+                    ->where(['id_registration' => $id])
+                    ->execute();
+                
+             }
+             /*print_r($_FILES);
+             exit();*/
+
+        $this->set(compact('fileName'));
+        $this->set('_serialize', ['fileName']);
+    }
+    public function deleteme($id = null) {
+        $id = $this->request->data['id'];
+        //.$pic = $this->request->data['record'];
+        print_r($_REQUEST);
+        exit();
+        $registrationtable = TableRegistry::get('registration');
+        $query = $this->$registrationtable->query();
+                        $query->update()
+                        ->set(['record'=> ''])
+                        ->where(['id_registration' => $id])
+                        ->execute();
+        if ($query) {
+            unlink(WWW_ROOT . 'img/students_images/');
+            $msg = 'Success|The photo has been deleted.';
+        } else {
+            $msg = 'Error|This could not be deleted. Please, try again.';
+        }
+       
+        $this->set(compact('msg'));
+        $this->set('_serialize', ['msg']);
+    }
+     /*public function viewPhotos($id = null) {
+        
+        //$this->loadModel('GalleryDetails');
+        $registrationtable = TableRegistry::get('registration');
+        $masterGallery = $this->registrationtable->find();
+        $masterGallery->select(['record'=>'registration.record']);
+        $masterGallery->where(['id_registration' => $id]);
+
+       
+        $this->set(compact('masterGallery','id'));
+        $this->set('_serialize', ['masterGallery','id']);
+        
+    }*/
     
     public function indexAjax(){
        
@@ -846,4 +948,5 @@ class RegistrationController extends AppController
         $this->set('_serialize', ['msg']);
         
     }
+
 }
