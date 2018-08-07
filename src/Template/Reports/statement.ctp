@@ -133,7 +133,7 @@
         <div class="table-responsive">
           <table class="table">
               <tr class="danger">
-              <th style="width:76%">Expanse</th>
+              <th style="width:76%">Expense</th>
               <td><?php echo $this->Number->precision($exp,2); ?></td>
             </tr>
            </table>
@@ -154,7 +154,7 @@
         <div class="table-responsive">
           <table class="table">
               <tr class="danger">
-              <th style="width:76%">Salary Expanse</th>
+              <th style="width:76%">Salary Expense</th>
               <td><?php echo $this->Number->precision($sal,2); ?></td>
             </tr>
            </table>

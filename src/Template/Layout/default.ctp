@@ -55,7 +55,7 @@ $cakeDescription = 'Online School Management System';
     <!-- Logo -->
     <a href="/" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <!-- <span class="logo-mini"><b>J</b>Q</span> -->
+      <img class="logo-mini" src="/img/FAVE.png" width="50px" height="50px">
       <!-- logo for regular state and mobile devices -->
       <img class="img-responsive" src="/img/logo.png" alt="">
     </a>
