@@ -119,7 +119,8 @@ class ReportsController extends AppController
                 $expansesalary = TableRegistry::get('employee_salary');
                 $query = $expansesalary->find('all');
                 $query->select(['empsalary'=> 'employee_salary.Net_salary']);
-                $query->where(['employee_salary.created_on >='=> date("Y-m-d H:i:s", strtotime($from)), 'employee_salary.created_on <='=> date("Y-m-d H:i:s", strtotime($to))]);
+                /*$query->where(['employee_salary.created_on >='=> date("Y-m-d H:i:s", strtotime($from)), 'employee_salary.created_on <='=> date("Y-m-d H:i:s", strtotime($to))]);*/
+                $query->where(['employee_salary.salary_month >='=> date("Y-m-d H:i:s", strtotime($from)), 'employee_salary.salary_month <='=> date("Y-m-d H:i:s", strtotime($to))]);
                 /*->join([
                             [   'table' => 'employee_salary',
                                 'alias' => 'empsalary',

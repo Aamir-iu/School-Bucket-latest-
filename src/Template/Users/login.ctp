@@ -53,7 +53,7 @@
 </div>
    <!-- Footer -->
 <div class="footer text-muted" style='text-align: center;'>
-    &copy; 2017. eschools.cloud Pvt Ltd. V2.5
+    &copy; 2018. SmartCloud, Integrated Units Pvt.Ltd 
 </div>
 <!-- /footer -->
 <!-- /.login-box -->
