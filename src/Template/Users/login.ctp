@@ -21,7 +21,7 @@
   <!-- /.login-logo -->
   <div class="login-box-body">
       <div style="text-align:center;">
-      <a  href="#"><img class='profile-user-img img-responsive img-circle' src="https://eschools.cloud/images/logotop.png" alt="" width="80%"></a>
+      <a  href="#"><img class='' src="/img/logo2.png" alt="" width="80%" height="100%"></a>
       </div>
     <p class="login-box-msg">Sign in to start your session</p>
 

@@ -53,11 +53,11 @@ $cakeDescription = 'Online School Management System';
   <header class="main-header">
 
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="/" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>J</b>Q</span>
+      <!-- <span class="logo-mini"><b>J</b>Q</span> -->
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>JQSYS</span>
+      <img class='' src="/img/logo2.png" alt="" width="110%" height="100%">
     </a>
 
     <!-- Header Navbar: style can be found in header.less -->
@@ -336,7 +336,7 @@ $cakeDescription = 'Online School Management System';
         
     <?php  if(!empty($this->request->session()->read('menu.Organization'))):   ?> 
         <?php  $Organization =  $this->request->session()->read('menu.Organization'); ?>
-        <li <?php if($this->request->param('controller')==='Expanses' &&  $this->request->param('action')==='index' ||  $this->request->param('controller')==='Complains' || $this->request->param('controller')==='Inquiry' && $this->request->param('action')==='index' )  {echo 'class="active treeview"';} ?>>
+        <li <?php if($this->request->param('controller')==='Complains' || $this->request->param('controller')==='Inquiry' && $this->request->param('action')==='index' )  {echo 'class="active treeview"';} ?>>
           <a href="#">
             <i class="fa fa-th"></i> <span>Organization</span>
             <span class="pull-right-container">
@@ -366,11 +366,11 @@ $cakeDescription = 'Online School Management System';
             </li>
             <?php endif; ?> -->
             
-            <?php  if(isset($Organization['Expanse Voucher']) && $Organization['Expanse Voucher'] === 'Yes'): ?>
+            <!-- <?php  if(isset($Organization['Expanse Voucher']) && $Organization['Expanse Voucher'] === 'Yes'): ?>
             <li <?php if($this->request->param('controller')==='Expanses' && $this->request->param('action')==='index' || $this->request->param('action')==='add' || $this->request->param('action')==='view'){echo 'class="active"';} ?>>
                 <?= $this->Html->link(__('Expense Voucher'), ['controller' => 'Expanses', 'action' => 'index']) ?>
             </li> 
-            <?php endif; ?>
+            <?php endif; ?> -->
             
             <!-- <?php  if(isset($Organization['Departments']) && $Organization['Departments'] === 'Yes'): ?>
             <li <?php if($this->request->param('controller')==='Departments' && $this->request->param('action')==='index' || $this->request->param('controller')==='Departments' && $this->request->param('action')==='edit' ||  $this->request->param('controller')==='Employees' && $this->request->param('action')==='index' || $this->request->param('controller')==='Employees' && $this->request->param('action')==='edit'){echo 'class="active"';} ?>>
@@ -832,7 +832,7 @@ $cakeDescription = 'Online School Management System';
         
         <?php  $accounts =  $this->request->session()->read('menu.Finance Management'); ?>
         
-       <li <?php if($this->request->param('controller')==='ControlAccount' || $this->request->param('controller')==='SubControlAccount' || $this->request->param('controller')==='TransactionAccount' || $this->request->param('controller')==='MainAccount' || $this->request->param('controller')==='AccountVoucher' || $this->request->param('controller')==='Fees'  &&  $this->request->param('action')==='feecollection' ){echo 'class="active open"';} ?>>
+       <li <?php if($this->request->param('controller')==='ControlAccount' || $this->request->param('controller')==='SubControlAccount' || $this->request->param('controller')==='TransactionAccount' || $this->request->param('controller')==='MainAccount' || $this->request->param('controller')==='AccountVoucher' || $this->request->param('controller')==='Expanses' &&  $this->request->param('action')==='index' || $this->request->param('controller')==='Fees'  &&  $this->request->param('action')==='feecollection' ){echo 'class="active open"';} ?>>
           <a href="#">
             <i class="fa  fa-line-chart"></i> <span>Finance Management</span>
             <span class="pull-right-container">
@@ -865,7 +865,13 @@ $cakeDescription = 'Online School Management System';
                 <li <?php if($this->request->param('controller')==='Fees' &&  $this->request->param('action')==='feecollection'){echo 'class="active"';} ?>>
                 <?= $this->Html->link(__('Fee Collection'), ['controller' => 'Fees', 'action' => 'feecollection']) ?>
                 </li> 
-                  <?php endif; ?>  
+                  <?php endif; ?>
+
+                  <?php  if(isset($Organization['Expanse Voucher']) && $Organization['Expanse Voucher'] === 'Yes'): ?>
+            <li <?php if($this->request->param('controller')==='Expanses' && $this->request->param('action')==='index' || $this->request->param('action')==='add' || $this->request->param('action')==='view'){echo 'class="active"';} ?>>
+                <?= $this->Html->link(__('Expense Voucher'), ['controller' => 'Expanses', 'action' => 'index']) ?>
+            </li> 
+            <?php endif; ?>  
                 <!-- <?php  if(isset($accounts['FCR Report']) && $accounts['FCR Report'] === 'Yes'): ?>
                 <li <?php if($this->request->param('controller')==='Fees' &&  $this->request->param('action')==='fcr'){echo 'class="active"';} ?>>
                 <?= $this->Html->link(__('FCR Report'), ['controller' => 'Fees', 'action' => 'fcr']) ?>
@@ -877,6 +883,7 @@ $cakeDescription = 'Online School Management System';
                  <?= $this->Html->link(__('Expanse Report'), ['controller' => 'Expanses', 'action' => 'expansereport']) ?>
                 </li>
                   <?php endif; ?>  -->
+
              
                
                

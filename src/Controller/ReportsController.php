@@ -111,11 +111,33 @@ class ReportsController extends AppController
                    $query->andwhere(['shift_id'=>$shift]);
                 }
 
+
                 $query->hydrate(false);
                 $expanse = $query->ToArray();
-                
-                $this->set(compact('income','expanse','from','to','shift_name'));
-                $this->set('_serialize', ['income','expanse']);
+
+                //current days salary
+                $expansesalary = TableRegistry::get('employee_salary');
+                $query = $expansesalary->find('all');
+                $query->select(['empsalary'=> 'employee_salary.Net_salary']);
+                $query->where(['employee_salary.created_on >='=> date("Y-m-d H:i:s", strtotime($from)), 'employee_salary.created_on <='=> date("Y-m-d H:i:s", strtotime($to))]);
+                /*->join([
+                            [   'table' => 'employee_salary',
+                                'alias' => 'empsalary',
+                                'type' => 'INNER',
+                                'conditions' => 'empsalary.id_employee_salary = fees.fee_type_id'
+                            ]
+
+                ]);*/
+                // echo "<pre>";
+                // print_r($query);
+                // echo "<pre>";
+                // exit();
+                $salary = $query->toArray();
+
+
+
+                $this->set(compact('income','expanse','salary','from','to','shift_name'));
+                $this->set('_serialize', ['income','expanse','salary']);
                 $this ->render('statement');
                 
             }

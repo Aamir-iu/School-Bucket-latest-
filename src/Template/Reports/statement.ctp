@@ -112,6 +112,42 @@
       <!-- /.col -->
     </div>
     <!-- /.row -->
+     <div class="row">
+      <div class="col-xs-12 table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+              
+              <th style="width:10%;">Salary Expanse</th>
+              <th style="width:20%;text-align: left;">Account Head</th>
+              <!-- <th style="width:50%;text-align: left;">Description</th> -->
+              <th style="width:20%;text-align: center;">Amount</th>
+            
+              
+           </tr>
+          </thead>
+          <tbody>
+         <?php $sal = 0; foreach($salary as $row): ?>   
+            <tr>
+              
+                <td><?php echo "-";  ?> </td>
+                <td style="width:20%;text-align: left;">Salary</td>
+                <!-- <td style="width:50%;text-align: left;"><?php echo $row['empsalary']  ?> </td> -->
+                <td style="width:20%;text-align: center;"><?php echo $this->Number->precision($row['empsalary'],2);  ?> </td>
+               
+                <?php $sal += $row['empsalary'];  ?>
+               
+                  
+              
+          </tr>
+         <?php endforeach; ?>
+          
+          </tbody>
+        </table>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
 
     <div class="row">
       <!-- accepted payments column -->
@@ -133,6 +169,27 @@
       <!-- /.col -->
     </div>
     <!-- /.row -->
+
+    <div class="row">
+      <!-- accepted payments column -->
+      <div class="col-xs-6">
+         
+      </div>
+      <!-- /.col -->
+      <div class="col-xs-6">
+       
+        <div class="table-responsive">
+          <table class="table">
+              <tr class="danger">
+              <th style="width:76%">Salary Expanse</th>
+              <td><?php echo $this->Number->precision($sal,2); ?></td>
+            </tr>
+           </table>
+        </div>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
     
      <div class="row">
       <!-- accepted payments column -->
@@ -146,7 +203,7 @@
           <table class="table">
               <tr class="warning">
               <th style="width:76%">Cash In Hand</th>
-              <td><?php echo $this->Number->precision($revenue - $exp,2); ?></td>
+              <td><?php echo $this->Number->precision($revenue - $exp - $sal,2); ?></td>
             </tr>
            </table>
         </div>
