@@ -57,7 +57,7 @@ $cakeDescription = 'Online School Management System';
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <!-- <span class="logo-mini"><b>J</b>Q</span> -->
       <!-- logo for regular state and mobile devices -->
-      <img class='' src="/img/logo2.png" alt="" width="110%" height="100%">
+      <img class="img-responsive" src="/img/logo.png" alt="">
     </a>
 
     <!-- Header Navbar: style can be found in header.less -->

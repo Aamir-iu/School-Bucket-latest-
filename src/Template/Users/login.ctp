@@ -1,7 +1,7 @@
 <?= $this->Html->css('../plugins/iCheck/square/blue.css') ?>
  <div class="navbar navbar-inverse" style="background-color:#05a;">
             <div class="navbar-header">
-                &nbsp;&nbsp;&nbsp; <a  href="#"><img src="https://eschools.cloud/images/top.png" alt="" width="70%"></a>
+                &nbsp;&nbsp;&nbsp; <a  href="#"><img src="img/logo.png" alt="" width="70%"></a>
                 <ul class="nav navbar-nav pull-right visible-xs-block">
                     <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
                 </ul>
@@ -21,7 +21,7 @@
   <!-- /.login-logo -->
   <div class="login-box-body">
       <div style="text-align:center;">
-      <a  href="#"><img class='' src="/img/logo2.png" alt="" width="80%" height="100%"></a>
+      <a  href="#"><img class='img-responsive' src="/img/mainlogo.png" alt="" style="text-align:center; display:inline-block;"  ></a>
       </div>
     <p class="login-box-msg">Sign in to start your session</p>
 

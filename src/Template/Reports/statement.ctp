@@ -112,42 +112,15 @@
       <!-- /.col -->
     </div>
     <!-- /.row -->
-     <div class="row">
-      <div class="col-xs-12 table-responsive">
-        <table class="table table-striped">
-          <thead>
-          <tr>
-              
-              <th style="width:10%;">Salary Expanse</th>
-              <th style="width:20%;text-align: left;">Account Head</th>
-              <!-- <th style="width:50%;text-align: left;">Description</th> -->
-              <th style="width:20%;text-align: center;">Amount</th>
+     
+    <?php $sal = 0; foreach($salary as $row): ?>   
             
               
-           </tr>
-          </thead>
-          <tbody>
-         <?php $sal = 0; foreach($salary as $row): ?>   
-            <tr>
-              
-                <td><?php echo "-";  ?> </td>
-                <td style="width:20%;text-align: left;">Salary</td>
-                <!-- <td style="width:50%;text-align: left;"><?php echo $row['empsalary']  ?> </td> -->
-                <td style="width:20%;text-align: center;"><?php echo $this->Number->precision($row['empsalary'],2);  ?> </td>
+                <?php $this->Number->precision($row['empsalary'],2);  ?>
                
                 <?php $sal += $row['empsalary'];  ?>
                
-                  
-              
-          </tr>
-         <?php endforeach; ?>
-          
-          </tbody>
-        </table>
-      </div>
-      <!-- /.col -->
-    </div>
-    <!-- /.row -->
+    <?php endforeach; ?>
 
     <div class="row">
       <!-- accepted payments column -->
