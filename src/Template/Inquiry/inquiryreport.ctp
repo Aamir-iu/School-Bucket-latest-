@@ -35,7 +35,7 @@
                                         <div class="form-group">
                                             <label>Select Class</label>
                                             <select class="form-control" id="class_id"  data-placeholder="Select Class">
-                                                <option>Select</option>
+                                                <option>All</option>
                                                 <?php foreach ($class as $class): ?>    
                                                     <option value="<?php echo $class->id_class; ?>"><?php echo $class->class_name; ?></option>
                                                 <?php endforeach; ?>    

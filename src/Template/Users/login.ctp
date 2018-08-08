@@ -53,7 +53,7 @@
 </div>
    <!-- Footer -->
 <div class="footer text-muted" style='text-align: center;'>
-    &copy; 2018. SmartCloud, Integrated Units Pvt.Ltd 
+    &copy;<?php echo date("Y");?> SmartCloud, Integrated Units Pvt.Ltd 
 </div>
 <!-- /footer -->
 <!-- /.login-box -->

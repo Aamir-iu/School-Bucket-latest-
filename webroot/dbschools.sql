@@ -2087,6 +2087,7 @@ CREATE TABLE `inquiry` (
   `f_name` varchar(50) DEFAULT NULL,
   `l_name` varchar(50) DEFAULT NULL,
   `for_class_id` int(11) DEFAULT NULL,
+  `occupation` varchar(50) DEFAULT NULL,
   `area_id` int(11) NOT NULL,
   `contact` varchar(50) DEFAULT NULL,
   `address` varchar(500) DEFAULT NULL,
@@ -2094,7 +2095,8 @@ CREATE TABLE `inquiry` (
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created_by` int(11) DEFAULT NULL,
   `status` varchar(50) DEFAULT 'Pending',
-  `remarks` text NOT NULL
+  `remarks` text NOT NULL,
+  `sibling` varchar(10) DEFAULT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
 --

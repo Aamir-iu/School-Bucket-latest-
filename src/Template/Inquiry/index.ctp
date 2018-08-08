@@ -28,11 +28,11 @@
                             <tr>
                             <tr role="row" class="heading">
                                 <th width="5%">ID</th>
-                                <th width="20%">First Name</th>
-                                <th width="20%">Last Name</th>
+                                <th width="15%">First Name</th>
+                                <th width="15%">Last Name</th>
                                 <th width="10%">Class</th>
-                                <th width="10%">Created_By</th>
-                                <th width="35%">Actions</th
+                                <th width="10%">Status</th>
+                                <th width="45%">Actions</th
                             </tr>
                         </thead>
 
@@ -44,13 +44,43 @@
                                     <td><?= h($inquiry->f_name) ?></td>
                                     <td><?= h($inquiry->l_name) ?></td>
                                     <td><?= h($inquiry->classes_section['class_name']) ?></td>
-                                    <td><?= h($inquiry->user['full_name']) ?></td>
+                                    <td><?= h($inquiry->status) ?></td>
                                     <td class="actions">
+                                        <?php if(($inquiry->status)=='Qualified'){
+                                            echo $this->Html->link(__('<i class="fa fa-trash"></i> Delete'), ['#' => '#'], ['onclick' => "delete_inquiry($inquiry->id_inquery);", 'class' => 'btn btn-icon waves-effect waves-light btn-danger m-b-5', 'escape' => false]) ;
 
-                                        <?= $this->Html->link(__('<i class="fa fa-user"></i> Admission'), ['controller'=>'Registration','action' => 'add',1,$inquiry->id_inquery], ['class' => 'btn btn-icon waves-effect waves-light btn-success m-b-5', 'escape' => false]) ?>
-                                        <?= $this->Html->link(__('<i class="fa fa-pencil"></i> Edit'), ['action' => 'edit',$inquiry->id_inquery], ['class' => 'btn btn-icon waves-effect waves-light btn-warning m-b-5', 'escape' => false]) ?>
-                                        <?= $this->Html->link(__('<i class="fa fa-trash"></i> Delete'), ['#' => '#'], ['onclick' => "delete_inquiry($inquiry->id_inquery);", 'class' => 'btn btn-icon waves-effect waves-light btn-danger m-b-5', 'escape' => false]) ?>
-                                      <?= $this->Html->link(__('<i class="fa fa-envelope-o"></i> SMS'), ['#' => '#'], ['onclick'=>"loadmodalsms($inquiry->id_inquery);",'class' => 'btn btn-icon waves-effect waves-light btn-info m-b-5', 'escape' => false]) ?>
+                                            echo '&nbsp';
+                                            
+                                            echo $this->Html->link(__('<i class="fa fa-envelope-o"></i> SMS'), ['#' => '#'], ['onclick'=>"loadmodalsms($inquiry->id_inquery);",'class' => 'btn btn-icon waves-effect waves-light btn-info m-b-5', 'escape' => false]);
+                                        }elseif (($inquiry->status)=='Pending'){
+                                            echo $this->Html->link(__('<i class="fa fa-user"></i> Admission'), ['controller'=>'Registration','action' => 'add',1,$inquiry->id_inquery], ['class' => 'btn btn-icon waves-effect waves-light btn-success m-b-5', 'escape' => false]);
+
+                                            echo '&nbsp';
+
+                                            echo $this->Html->link(__('<i class="fa fa-pencil"></i> Edit'), ['action' => 'edit',$inquiry->id_inquery], ['class' => 'btn btn-icon waves-effect waves-light btn-warning m-b-5', 'escape' => false]);
+
+                                            echo '&nbsp';
+
+                                            echo $this->Html->link(__('<i class="fa fa-trash"></i> Delete'), ['#' => '#'], ['onclick' => "delete_inquiry($inquiry->id_inquery);", 'class' => 'btn btn-icon waves-effect waves-light btn-danger m-b-5', 'escape' => false]) ;
+
+                                            echo '&nbsp';
+
+                                            echo $this->Html->link(__('<i class="fa fa-envelope-o"></i> SMS'), ['#' => '#'], ['onclick'=>"loadmodalsms($inquiry->id_inquery);",'class' => 'btn btn-icon waves-effect waves-light btn-info m-b-5', 'escape' => false]);
+
+                                            echo '&nbsp';
+
+                                            echo $this->Html->link(__('<i class="fa fa-close"></i> Close'), ['#' => '#'], ['onclick' => "close_inquiry($inquiry->id_inquery);", 'class' => 'btn btn-icon waves-effect waves-light btn-danger m-b-5', 'escape' => false]) ;
+
+                                        }else{
+                                            echo $this->Html->link(__('<i class="fa fa-trash"></i> Delete'), ['#' => '#'], ['onclick' => "delete_inquiry($inquiry->id_inquery);", 'class' => 'btn btn-icon waves-effect waves-light btn-danger m-b-5', 'escape' => false]) ;
+
+                                            echo '&nbsp';
+                                            
+                                            echo $this->Html->link(__('<i class="fa fa-envelope-o"></i> SMS'), ['#' => '#'], ['onclick'=>"loadmodalsms($inquiry->id_inquery);",'class' => 'btn btn-icon waves-effect waves-light btn-info m-b-5', 'escape' => false]);
+                                    }?>
+
+                                        
+                                  
 
                                     </td>
 
@@ -117,8 +147,15 @@
                             </select>
                         </div>
                     </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Father/Guardian Occupation</label>
+                            <input type="text" class="form-control" name="occupation" id="occupation" placeholder="Occupation">
+                        </div>
+                    </div>
                     
-                     <div class="col-md-8">
+                     <div class="col-md-4">
                         <div class="form-group">
                              <label>Select Area</label>
                             <div class="input-group">
@@ -149,8 +186,14 @@
                             <label>Remarks</label>
                             <textarea class="form-control" name='remarks' id="remarks" placeholder="Remarks"></textarea>
                         </div>
-                    </div>   
-                    
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>No. of Siblings</label>
+                            <input type="text" class="form-control" name="sibling" id="sibling" placeholder="1or2, none">
+                        </div>
+                    </div>
                     
 
 
@@ -369,6 +412,8 @@
             var class_id = $('#class_id option:selected').val();
             var address = $('#address').val();
             var remarks = $('#remarks').val();
+            var occupation = $('#occupation').val();
+            var sibling = $('#sibling').val();
             var area_id = $('#area_id option:selected').val();
             if(fname == ''){
                 toastr["error"]("Please enter first name.");
@@ -398,6 +443,8 @@
                            ,contact:contact
                            ,area_id:area_id
                            ,remarks:remarks
+                           ,occupation:occupation
+                           ,sibling:sibling
                           },
                     success: function (data) {
                         var result = data.msg.split("|");
@@ -435,6 +482,7 @@
                             data: {id: id},
                             success: function (data) {
                                 var result = data.msg.split("|");
+
                                 if (result[0] === "Success") {
                                     toastr.success(result[0], result[1]);
                                      location.reload();
@@ -449,6 +497,49 @@
                 swal(
                         'Deleted!',
                         'Record has been deleted.',
+                        'success'
+                        )
+            });
+
+        }
+        // close the inquiry
+        function close_inquiry(id) {
+
+            swal({
+                title: 'Are you sure?',
+                text: "Are sure you want to Close!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Close it!'
+            }).then(function (result) {
+                if (result) {
+                    if (id > 0) {
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo $this->Url->build(['controller' => 'Inquiry', 'action' => 'close']); ?>",
+                            dataType: 'json',
+                            cache: false,
+                            async: false,
+                            data: {id: id},
+                            success: function (data) {
+                                var result = data.msg.split("|");
+                                console.log(result);
+                                if (result[0] === "Success") {
+                                    toastr.success(result[0], result[1]);
+                                     location.reload();
+                                } else {
+                                    toastr.error(result[0], result[1]);
+                                }
+                            }
+                        });
+                    }
+
+                }
+                swal(
+                        'Closed!',
+                        'Record has been closed.',
                         'success'
                         )
             });

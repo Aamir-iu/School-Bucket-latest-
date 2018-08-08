@@ -233,11 +233,12 @@ class RegistrationController extends AppController
                 $students_master_detailsble->save($students_master_details);
                  
                  //  geting family code if no set..
+                 //  if inquiry admission is confirmed
                 if(!empty($this->request->data['inquiry_id'])){
                    $inquirytbl = TableRegistry::get('inquiry');
                    $query = $inquirytbl->query();
                    $query->update()
-                       ->set(['status' => 'comfirmed'])
+                       ->set(['status' => 'Qualified'])
                        ->where(['id_inquery' => $this->request->data['inquiry_id']])
                        ->execute();
 

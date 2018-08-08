@@ -16,7 +16,8 @@ class InquiryController extends AppController
     {
         $table = TableRegistry::get('inquiry');
         $inquiry = $table->find('all')->contain(['Users','classes_sections']);
-        $inquiry->where(['status'=>'Pending']);
+        // $inquiry->where(['status'=>'confirmed']);
+        // $inquiry->andwhere(['status'=>'Pending']);
         
         $classes_sectionsble = TableRegistry::get('classes_sections');
         $class               = $classes_sectionsble->find('all');
@@ -54,7 +55,7 @@ class InquiryController extends AppController
         $action = $this->request->params['action'];
 
         // The add and index actions are always allowed.
-        if (in_array($action, ['index','view','edit','delete','add','sendsmsall','exportnumbers','inquiryreport','sendsms','addarea'])&& $this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3) {
+        if (in_array($action, ['index','view','edit','delete','close','add','sendsmsall','exportnumbers','inquiryreport','sendsms','addarea'])&& $this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3) {
             return true;
         }
         // All other actions require an id.
@@ -105,8 +106,10 @@ class InquiryController extends AppController
             $inquiry->l_name = $this->request->data['ln'];
             $inquiry->for_class_id = $this->request->data['class_id'];
             $inquiry->contact = $this->request->data['contact'];
+            $inquiry->occupation = $this->request->data['occupation'];
             $inquiry->address = $this->request->data['address'];
             $inquiry->area_id = $this->request->data['area_id'];
+            $inquiry->sibling = $this->request->data['sibling'];
             $inquiry->inquery_date = date("Y-m-d", strtotime($date));
             $inquiry->created_by = $this->request->session()->read('Auth.User.id');
 
@@ -158,6 +161,31 @@ class InquiryController extends AppController
             $msg = 'Success|The inquiry has been deleted.';
         } else {
             $msg = 'Success|The inquiry could not be deleted. Please, try again.';
+        }
+
+        $this->set(compact('msg'));
+        $this->set('_serialize', ['msg']);
+    }
+    //   close function
+    public function close($id = null)
+    {
+        
+        /*$id = $this->request->data['id'];
+        $this->request->allowMethod(['post', 'close']);
+        $inquiry = $this->Inquiry->get($id);
+        if ($this->Inquiry->update($inquiry)->set(['status' => 'Closed'])->execute()) {*/
+            if(!empty($this->request->data['id'])){
+                   $inquirytbl = TableRegistry::get('inquiry');
+                   $query = $inquirytbl->query();
+                   $query->update()
+                       ->set(['status' => 'Closed'])
+                       ->where(['id_inquery' => $this->request->data['id']])
+                       ->execute();
+
+                 
+            $msg = 'Success|The inquiry has been closed.';
+        } else {
+            $msg = 'Success|The inquiry could not be closed. Please, try again.';
         }
 
         $this->set(compact('msg'));

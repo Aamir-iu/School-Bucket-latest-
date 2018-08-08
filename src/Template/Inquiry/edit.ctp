@@ -54,7 +54,14 @@
                         </select>
                         
                     </div>
-                </div>         
+                </div>
+                 <div class="form-group">
+                    <label for="class_name" class="col-sm-2 control-label">Father/Guardian Occupation</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" required class="form-control" id="occupation" name="occupation" placeholder="Occupation" value="<?php echo $inquiry->occupation; ?>">
+                    </div>
+                </div>          
                 <div class="form-group">
                     <label for="class_name" class="col-sm-2 control-label">Address</label>
 
@@ -70,7 +77,13 @@
                         <input type="text" required class="form-control" id="remarks" name="remarks" placeholder="Remarks" value="<?php echo $inquiry->remarks; ?>">
                     </div>
                 </div>      
-                    
+                <div class="form-group">
+                    <label for="class_name" class="col-sm-2 control-label">No. of Siblings</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" required class="form-control" id="sibling" name="sibling" placeholder="1 or 2" value="<?php echo $inquiry->sibling; ?>">
+                    </div>
+                </div>     
                     
                     
                   <div class="form-group">
