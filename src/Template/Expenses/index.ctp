@@ -268,17 +268,17 @@
             var date        = $("#datepicker").val();
             
             if(remarks===''){
-                 toastr["error"]("Please Enter The  Remarks Of Expanses.");
+                 toastr["error"]("Please Enter The  Remarks Of Expenses.");
                  return false;
             }
             
             if(amount===''){
-                 toastr["error"]("Please Enter The  Amount Of Expanses.");
+                 toastr["error"]("Please Enter The  Amount Of Expenses.");
                  return false;
             }
             
             if(date===''){
-                 toastr["error"]("Please Enter The  Date Of Expanses.");
+                 toastr["error"]("Please Enter The  Date Of Expenses.");
                  return false;
             }
           

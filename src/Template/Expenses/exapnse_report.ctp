@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col-xs-12">
         <h2 class="page-header">
-          <i class="fa fa-globe"></i>Expanse Report  : <?php echo "From " .date("d-M-Y", strtotime($from)) . " to ".date("d-M-Y", strtotime($to)) ." Shift :" .$shift_name; ?>
+          <i class="fa fa-globe"></i>Expense Report  : <?php echo "From " .date("d-M-Y", strtotime($from)) . " to ".date("d-M-Y", strtotime($to)) ." Shift :" .$shift_name; ?>
           <div class="tools pull-right">
                     <a href="javascript:window.print()" class="fa fa-print" data-original-title="" title="Print">
                     </a>
@@ -27,7 +27,7 @@
               <th style="width:15%;">Transaction Account Number</th>
               <th style="width:15%;">Transaction Account Name</th>
               <?php if($tag==2): ?>
-              <th style="width:50%;">Expanse Desc.</th>
+              <th style="width:50%;">Expense Desc.</th>
               <?php endif; ?>
               <th style="width:20%;">Amount</th>
               

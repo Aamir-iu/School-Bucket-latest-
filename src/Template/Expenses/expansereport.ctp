@@ -7,7 +7,7 @@
 
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Generate Expanse Report</h3>
+                    <h3 class="box-title">Generate Expense Report</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">

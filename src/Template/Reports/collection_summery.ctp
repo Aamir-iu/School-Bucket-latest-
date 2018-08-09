@@ -8,7 +8,7 @@
       <div class="col-xs-12">
         <h2 class="page-header">
              <?php $date = date("Y-m-d h:i"); ?>
-          <i class="fa fa-globe"></i>Fee Collection Summery : Month :  <?php echo  $month .'-'. date('Y'); ?>  Fee Type :  <?php echo $type_name; ?>
+          <i class="fa fa-globe"></i>Fee Collection Summary : Month :  <?php echo  $month .'-'. date('Y'); ?>  Fee Type :  <?php echo $type_name; ?>
           <div class="tools pull-right">
                     <a href="javascript:window.print()" class="fa fa-print" data-original-title="" title="Print">
                     </a>

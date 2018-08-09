@@ -82,7 +82,7 @@
           <thead>
           <tr>
               
-              <th style="width:10%;">Expanse</th>
+              <th style="width:10%;">Expense</th>
               <th style="width:20%;text-align: left;">Account Head</th>
               <th style="width:50%;text-align: left;">Description</th>
               <th style="width:20%;text-align: center;">Amount</th>

@@ -8,7 +8,7 @@ use App\Controller\AppController;
  *
  * @property \App\Model\Table\ExpansesTable $Expanses
  */
-class ExpansesController extends AppController
+class ExpensesController extends AppController
 {
 
     public function index()

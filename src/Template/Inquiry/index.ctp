@@ -77,6 +77,10 @@
                                             echo '&nbsp';
                                             
                                             echo $this->Html->link(__('<i class="fa fa-envelope-o"></i> SMS'), ['#' => '#'], ['onclick'=>"loadmodalsms($inquiry->id_inquery);",'class' => 'btn btn-icon waves-effect waves-light btn-info m-b-5', 'escape' => false]);
+
+                                            echo '&nbsp';
+
+                                            echo $this->Html->link(__('<i class="fa fa-c"></i> Pending'), ['#' => '#'], ['onclick' => "pending_inquiry($inquiry->id_inquery);", 'class' => 'btn btn-icon waves-effect waves-light btn-danger m-b-5', 'escape' => false]) ;
                                     }?>
 
                                         
@@ -525,7 +529,6 @@
                             data: {id: id},
                             success: function (data) {
                                 var result = data.msg.split("|");
-                                console.log(result);
                                 if (result[0] === "Success") {
                                     toastr.success(result[0], result[1]);
                                      location.reload();
@@ -540,6 +543,49 @@
                 swal(
                         'Closed!',
                         'Record has been closed.',
+                        'success'
+                        )
+            });
+
+        }
+
+        function pending_inquiry(id) {
+
+            swal({
+                title: 'Are you sure?',
+                text: "Are sure you want to pend!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Pend it!'
+            }).then(function (result) {
+                if (result) {
+                    if (id > 0) {
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo $this->Url->build(['controller' => 'Inquiry', 'action' => 'pending']); ?>",
+                            dataType: 'json',
+                            cache: false,
+                            async: false,
+                            data: {id: id},
+                            success: function (data) {
+                                var result = data.msg.split("|");
+                                console.log(result);
+                                if (result[0] === "Success") {
+                                    toastr.success(result[0], result[1]);
+                                     location.reload();
+                                } else {
+                                    toastr.error(result[0], result[1]);
+                                }
+                            }
+                        });
+                    }
+
+                }
+                swal(
+                        'Pending!',
+                        'Record has been pended.',
                         'success'
                         )
             });

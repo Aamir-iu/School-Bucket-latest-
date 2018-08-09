@@ -55,7 +55,7 @@ class InquiryController extends AppController
         $action = $this->request->params['action'];
 
         // The add and index actions are always allowed.
-        if (in_array($action, ['index','view','edit','delete','close','add','sendsmsall','exportnumbers','inquiryreport','sendsms','addarea'])&& $this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3) {
+        if (in_array($action, ['index','view','edit','delete','close','pending','add','sendsmsall','exportnumbers','inquiryreport','sendsms','addarea'])&& $this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3) {
             return true;
         }
         // All other actions require an id.
@@ -169,6 +169,26 @@ class InquiryController extends AppController
     //   close function
     public function close($id = null)
     {
+        if(!empty($this->request->data['id'])){
+            $inquirytbl = TableRegistry::get('inquiry');
+            $query = $inquirytbl->query();
+            $query->update()
+                ->set(['status' => 'Closed'])
+                ->where(['id_inquery' => $this->request->data['id']])
+                ->execute();
+
+                 
+            $msg = 'Success|The inquiry has been closed.';
+        } else {
+            $msg = 'Success|The inquiry could not be closed. Please, try again.';
+        }
+
+        $this->set(compact('msg'));
+        $this->set('_serialize', ['msg']);
+    }
+
+    public function pending($id = null)
+    {
         
         /*$id = $this->request->data['id'];
         $this->request->allowMethod(['post', 'close']);
@@ -178,14 +198,14 @@ class InquiryController extends AppController
                    $inquirytbl = TableRegistry::get('inquiry');
                    $query = $inquirytbl->query();
                    $query->update()
-                       ->set(['status' => 'Closed'])
+                       ->set(['status' => 'Pending'])
                        ->where(['id_inquery' => $this->request->data['id']])
                        ->execute();
 
                  
-            $msg = 'Success|The inquiry has been closed.';
+            $msg = 'Success|The inquiry has been pending.';
         } else {
-            $msg = 'Success|The inquiry could not be closed. Please, try again.';
+            $msg = 'Success|The inquiry could not be pending. Please, try again.';
         }
 
         $this->set(compact('msg'));
@@ -266,7 +286,7 @@ class InquiryController extends AppController
         $class               = $classes_sectionsble->find('all');
         $areaTable = TableRegistry::get('area');
         $area               = $areaTable->find('all');
-        
+        $class->toArray();
         $this->set(compact('inquiry','class','area'));
         $this->set('_serialize', ['inquiry','class','area']); 
     }

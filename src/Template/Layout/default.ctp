@@ -868,8 +868,8 @@ $cakeDescription = 'Online School Management System';
                   <?php endif; ?>
 
                   <?php  if(isset($Organization['Expanse Voucher']) && $Organization['Expanse Voucher'] === 'Yes'): ?>
-            <li <?php if($this->request->param('controller')==='Expanses' && $this->request->param('action')==='index' || $this->request->param('action')==='add' || $this->request->param('action')==='view'){echo 'class="active"';} ?>>
-                <?= $this->Html->link(__('Expense Voucher'), ['controller' => 'Expanses', 'action' => 'index']) ?>
+            <li <?php if($this->request->param('controller')==='Expenses' && $this->request->param('action')==='index' || $this->request->param('action')==='add' || $this->request->param('action')==='view'){echo 'class="active"';} ?>>
+                <?= $this->Html->link(__('Expense Voucher'), ['controller' => 'Expenses', 'action' => 'index']) ?>
             </li> 
             <?php endif; ?>  
                 <!-- <?php  if(isset($accounts['FCR Report']) && $accounts['FCR Report'] === 'Yes'): ?>

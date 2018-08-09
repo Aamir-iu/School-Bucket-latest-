@@ -7,7 +7,7 @@
 
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Collection Summery</h3>
+                    <h3 class="box-title">Collection Summary</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">

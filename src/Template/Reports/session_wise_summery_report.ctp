@@ -10,7 +10,7 @@
     <div class="row">
       <div class="col-xs-12">
         <h2 class="page-header">
-            <i class="fa fa-globe"></i>Session Wise Fee Summery Report : <?php  echo $session_name;   ?> 
+            <i class="fa fa-globe"></i>Session Wise Fee Summary Report : <?php  echo $session_name;   ?> 
           <div class="tools pull-right">
                     <a href="javascript:window.print()" class="fa fa-print" data-original-title="" title="Print">
                     </a>
