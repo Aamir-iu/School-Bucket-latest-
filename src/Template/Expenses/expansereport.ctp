@@ -122,7 +122,7 @@
  
         var flag = '2';
         toastr["error"]("Please wait,Generating Report!");
-        window.open("<?php echo $this->Url->build(['controller' => 'Expanses', 'action' => 'view']); ?>/" +  flag + "/" + fdate + "/" + tdate + "/" + ac + "/" + tag + "/"+shift_id + "/"+shift_name);
+        window.open("<?php echo $this->Url->build(['controller' => 'Expenses', 'action' => 'view']); ?>/" +  flag + "/" + fdate + "/" + tdate + "/" + ac + "/" + tag + "/"+shift_id + "/"+shift_name);
     
     }  
     

@@ -69,7 +69,7 @@ $cakeDescription = 'Online School Management System';
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-       <?php  if($this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3):   ?>
+       <?php  if($this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3 || $this->request->session()->read('Auth.User.role_id')==5 || $this->request->session()->read('Auth.User.role_id')==6):   ?>
           <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -274,7 +274,7 @@ $cakeDescription = 'Online School Management System';
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-               <?php  if($this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3):   ?>   
+               <?php  if($this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3 || $this->request->session()->read('Auth.User.role_id')==5 || $this->request->session()->read('Auth.User.role_id')==6):   ?>   
                 <div class="pull-left">
                   <?= $this->Html->link(__('<span class="btn btn-default btn-flat">Profile</span> '), ['controller' => 'Users', 'action' => 'Userprofile'], ['escape' => false]) ?>
                 </div>
@@ -832,7 +832,7 @@ $cakeDescription = 'Online School Management System';
         
         <?php  $accounts =  $this->request->session()->read('menu.Finance Management'); ?>
         
-       <li <?php if($this->request->param('controller')==='ControlAccount' || $this->request->param('controller')==='SubControlAccount' || $this->request->param('controller')==='TransactionAccount' || $this->request->param('controller')==='MainAccount' || $this->request->param('controller')==='AccountVoucher' || $this->request->param('controller')==='Expanses' &&  $this->request->param('action')==='index' || $this->request->param('controller')==='Fees'  &&  $this->request->param('action')==='feecollection' ){echo 'class="active open"';} ?>>
+       <li <?php if($this->request->param('controller')==='ControlAccount' || $this->request->param('controller')==='SubControlAccount' || $this->request->param('controller')==='TransactionAccount' || $this->request->param('controller')==='MainAccount' || $this->request->param('controller')==='AccountVoucher' || $this->request->param('controller')==='Expenses' &&  $this->request->param('action')==='index' || $this->request->param('controller')==='Fees'  &&  $this->request->param('action')==='feecollection' ){echo 'class="active open"';} ?>>
           <a href="#">
             <i class="fa  fa-line-chart"></i> <span>Finance Management</span>
             <span class="pull-right-container">
@@ -1089,8 +1089,8 @@ $cakeDescription = 'Online School Management System';
                   <?php endif; ?>  
                 <?php  if(isset($accounts['Expanse Report']) && $accounts['Expanse Report'] === 'Yes'): ?>
                 
-                <li <?php if($this->request->param('controller')==='Expanses' && $this->request->param('action')==='expansereport'){echo 'class="active"';} ?>>
-                 <?= $this->Html->link(__('Expense Report'), ['controller' => 'Expanses', 'action' => 'expansereport']) ?>
+                <li <?php if($this->request->param('controller')==='Expenses' && $this->request->param('action')==='expansereport'){echo 'class="active"';} ?>>
+                 <?= $this->Html->link(__('Expense Report'), ['controller' => 'Expenses', 'action' => 'expansereport']) ?>
                 </li>
                   <?php endif; ?>
              
@@ -1707,7 +1707,7 @@ $cakeDescription = 'Online School Management System';
 //                            getNotifications();
 //                        }, 5000);
 //                    
-                    <?php if($this->request->session()->read('Auth.User.role_id') === 1 || $this->request->session()->read('Auth.User.role_id') === 2 || $this->request->session()->read('Auth.User.role_id') === 3): ?> 
+                    <?php if($this->request->session()->read('Auth.User.role_id') === 1 || $this->request->session()->read('Auth.User.role_id') === 2 || $this->request->session()->read('Auth.User.role_id') === 3 || $this->request->session()->read('Auth.User.role_id') === 5 || $this->request->session()->read('Auth.User.role_id') === 6): ?> 
                      //    $(document).ajaxStart(function() { Pace.restart(); }); 
                     <?php endif; ?>
                         

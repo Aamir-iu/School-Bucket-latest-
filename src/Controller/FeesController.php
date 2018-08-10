@@ -57,7 +57,7 @@ class FeesController extends AppController
         // The add and index actions are always allowed.
         if (in_array($action, ['index','view','edit','delete','fcr','generatedues',
             'getstudentfee','gtbysearch','piadfeehistory','paidfees','livesearchstudent',
-            'feecollection','cashregister','updateCashRegister','addMultipleFees','paidMultiple','cancelInvoices'])&& $this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3) {
+            'feecollection','cashregister','updateCashRegister','addMultipleFees','paidMultiple','cancelInvoices'])&& $this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3 || $this->request->session()->read('Auth.User.role_id')==5 || $this->request->session()->read('Auth.User.role_id')==6) {
             return true;
         }
         // All other actions require an id.
@@ -119,6 +119,7 @@ class FeesController extends AppController
             
             $query->hydrate(false);
             $data = $query->ToArray();
+            
             
             if($this->request->session()->read('Info.fee_slip') === 'thermal'){
                 $this->set(compact('data'));
@@ -284,7 +285,11 @@ class FeesController extends AppController
                         $count ++;
                     }
               
-            }     
+            }    
+            echo "<pre>";
+            print_r($mdata);
+            echo "</pre>";
+            exit(); 
               
            
             $this->set(compact('mdata','moonth_names','fee_type','class','shift'));

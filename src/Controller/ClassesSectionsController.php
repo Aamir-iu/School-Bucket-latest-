@@ -31,7 +31,7 @@ class ClassesSectionsController extends AppController
         $action = $this->request->params['action'];
 
         // The add and index actions are always allowed.
-         if (in_array($action, ['index','add','edit','delete']) && $this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3) {
+         if (in_array($action, ['index','viewdetail','add','edit','delete']) && $this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3 || $this->request->session()->read('Auth.User.role_id')==5 || $this->request->session()->read('Auth.User.role_id')==6) {
             return true;
         }
         // All other actions require an id.
@@ -50,6 +50,30 @@ class ClassesSectionsController extends AppController
 
         $this->set('classesSection', $classesSection);
         $this->set('_serialize', ['classesSection']);
+    }
+    public function viewdetail($id = null)
+    {
+        /*$classesSection = $this->ClassesSections->get($id, [
+            'contain' => []
+        ]);*/
+        $table = TableRegistry::get('students_master_details');
+            $registration = $table->find()->contain(['registration','classes_sections']);
+            $registration->select($table);
+            $registration->select(['s_name'=>'registration.student_name','f_name'=>'registration.father_name']);
+            $registration->select(['class_name'=>'classes_sections.class_name']);
+            $registration->select(['gender'=>'registration.sex','contact'=>'registration.contact1']);
+            $registration->select(['roll_no','grno'=>'registration.gr','add'=>'registration.address']);
+            $registration->select(['cont2'=>'registration.contact2','cont3'=>'registration.contact3']);
+            $registration->select(['reg_date'=>'date_format(registration.doa,"%d-%M-%Y")']);
+            $registration->select(['DOB'=>'date_format(registration.dob,"%d-%M-%Y")']);
+            
+            $registration->where(['class_id'=>$id]);
+            $data = $registration->toArray();
+            //$registration->andwhere(['shift_id'=>$shift_id]);
+            //$registration->andwhere(['registration.active'=>$status]);
+
+            $this->set(compact('registration'));
+            // $this->set('_serialize', ['classesSections']);
     }
 
    

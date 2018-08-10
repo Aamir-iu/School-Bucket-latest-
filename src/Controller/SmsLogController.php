@@ -33,7 +33,7 @@ class SmsLogController extends AppController
 
         // The add and index actions are always allowed.
         if (in_array($action, ['index','view','edit','delete','add','ajaxSearch','sendsms',
-            'sendsmsdefaulerts','bulksms','smsreport','exportnumbers','statistics'])&& $this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3) {
+            'sendsmsdefaulerts','bulksms','smsreport','exportnumbers','statistics'])&& $this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3 || $this->request->session()->read('Auth.User.role_id')==5 || $this->request->session()->read('Auth.User.role_id')==6) {
             return true;
         }
         // All other actions require an id.

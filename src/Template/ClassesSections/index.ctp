@@ -22,7 +22,7 @@
                    <th style="width:10%;">Class ID</th>
                   <th>Class and Section Name</th>
                   <th>Created On</th>
-                  <th>Created By</th>
+                  <th>Details</th>
                   <th style="width:20%;">Action</th>
                   
                 </tr>
@@ -30,10 +30,18 @@
                 <tbody>
                  <?php foreach ($classesSections as $classesSection): ?>
                 <tr>
-                        <td><?= $this->Number->format($classesSection->id_class) ?></td>
+                        <td id="one"><?= $this->Number->format($classesSection->id_class) ?></td>
                         <td><?= h($classesSection->class_name) ?></td>
                         <td><?= h($classesSection->created_on) ?></td>
-                        <td><?= h($classesSection->user['full_name']) ?></td>
+                        <td>
+                          <div class="form-group">
+                              <!-- <?= $this->Html->link(__('<i class="fa fa-print"></i> View Detail'), ['#' => '#'], ['onclick'=>"view_report();",'class' => 'btn btn-icon waves-effect waves-light btn-success m-b-5', 'escape' => false]) ?> -->
+                              <!-- <?= $this->Html->link(__('<i class="fa fa-print"></i> View Detail'), ['action' => 'view_detail', $this->Number->format($classesSection->id_class)], ['class' => 'btn btn-icon waves-effect waves-light btn-success m-b-5', 'escape' => false]) ?> -->
+                              <?= $this->Html->link(__('<i class="fa fa-print"></i> View Detail'), ['action' => 'viewdetail', $this->Number->format($classesSection->id_class)], ['class' => 'btn btn-icon waves-effect waves-light btn-success m-b-5', 'escape' => false]) ?>
+                              <!-- <?= $this->Html->link(__('<i class="fa fa-print"></i> View Details'), ['action' => 'viewdetail',$classesSection->id_class], ['class' => 'btn btn-icon waves-effect waves-light btn-danger m-b-5', 'target'=>'blank','escape' => false]) ?> -->
+                                           
+                          </div>
+                        </td>
                     
                      <td class="actions">
                            <?= $this->Html->link(__('<i class="fa fa-pencil"></i> Edit'), ['action' => 'edit', $this->Number->format($classesSection->id_class)], ['class' => 'btn btn-icon waves-effect waves-light btn-warning m-b-5', 'escape' => false]) ?>
@@ -116,6 +124,16 @@
     $("#userstable").DataTable();
     
   });
+  function view_report(){
+        
+        var class_id = $('#one').val();
+        console.log(class_id);
+        var shift_id = $('#shift_id option:selected').val();
+        var status = $('#status option:selected').val();
+        var flag = '2';
+        window.open("<?php echo $this->Url->build(['controller' => 'Registration', 'action' => 'view']); ?>/" +  flag + "/" + class_id + "/" + shift_id + "/" + status);
+    
+    }
   
   function loadmodal() {
 

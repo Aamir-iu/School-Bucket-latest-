@@ -10,7 +10,7 @@ class DashboardController extends AppController
         $action = $this->request->params['action'];
 
         // The add and index actions are always allowed.
-        if (in_array($action, ['index','balance','birthdaysms','editNotification','sendNotification','cashregister']) && $this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3) {
+        if (in_array($action, ['index','balance','birthdaysms','editNotification','sendNotification','cashregister']) && $this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3 || $this->request->session()->read('Auth.User.role_id')==5 || $this->request->session()->read('Auth.User.role_id')==6 ) {
             return true;
         }
         // All other actions require an id.
