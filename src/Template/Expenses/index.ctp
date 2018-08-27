@@ -323,7 +323,7 @@
             toastr["info"]("Updating", "Transactions");
             $.ajax({
                 type: "POST",
-                url: "<?php echo $this->Url->build(['controller'=> 'Expanses', 'action' => 'add']); ?>",
+                url: "<?php echo $this->Url->build(['controller'=> 'Expenses', 'action' => 'add']); ?>",
                 dataType:'json',
                 data: {data: TableData},
                 success: function(data) {
@@ -353,7 +353,7 @@
         
       $.ajax({
             type: "POST",
-            url: "<?php echo $this->Url->build(['controller' => 'Expanses', 'action' => 'getdetails']); ?>",
+            url: "<?php echo $this->Url->build(['controller' => 'Expenses', 'action' => 'getdetails']); ?>",
             dataType: 'json',
             cache: false,
             async: false,
@@ -399,7 +399,7 @@
                 if (id > 0) {
                     $.ajax({
                         type: "POST",
-                        url: "<?php echo $this->Url->build(['controller' => 'Expanses', 'action' => 'delete']); ?>",
+                        url: "<?php echo $this->Url->build(['controller' => 'Expenses', 'action' => 'delete']); ?>",
                         dataType: 'json',
                         cache: false,
                         async: false,

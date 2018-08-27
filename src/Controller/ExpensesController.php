@@ -14,7 +14,7 @@ class ExpensesController extends AppController
     public function index()
     {
         $dat = date("Y-d-m");
-        $expansesTbl = TableRegistry::get('expanses');
+        $expansesTbl = TableRegistry::get('expenses');
         $query    =  $expansesTbl->find()->contain([
                 'Users' => function ($q) {
                     return $q
@@ -23,7 +23,7 @@ class ExpensesController extends AppController
                     ]);
                    
         
-        $query->select(['voucher_number','exp_date'=>'date_format(expanses.created_on,"%d-%m-%Y %H:%i")']);
+        $query->select(['voucher_number','exp_date'=>'date_format(expenses.created_on,"%d-%m-%Y %H:%i")']);
         $query->select(['expanse_desc']);
         $query->select(['amount' => $query->func()->sum('amount')]);
         $query->group('voucher_number');
@@ -85,7 +85,7 @@ class ExpensesController extends AppController
         if($flag==1){ 
            
             $voucher_no = $this->request->params['pass'][1];
-            $expansestbl = TableRegistry::get('expanses');
+            $expansestbl = TableRegistry::get('expenses');
             $query = $expansestbl->find('all')->contain(['Users']);
             $query->where(['voucher_number ='=> $voucher_no]);
             $query->hydrate(false);
@@ -106,13 +106,13 @@ class ExpensesController extends AppController
            $shift_name = $this->request->params['pass'][6];
            
             
-            $expansestbl = TableRegistry::get('expanses');
+            $expansestbl = TableRegistry::get('expenses');
                     $query = $expansestbl->find()
                     ->join([
                             [   'table' => 'transaction_account',
                                 'alias' => 'ta',
                                 'type' => 'INNER',
-                                'conditions' => 'expanses.transaction_account_id = ta.id_transaction_account '
+                                'conditions' => 'expenses.transaction_account_id = ta.id_transaction_account '
                              ],
                             [   'table' => 'sub_control_account',
                                 'alias' => 'subaccount',
@@ -164,10 +164,11 @@ class ExpensesController extends AppController
    
     public function add()
     {
+        
        
-        $exp = TableRegistry::get('expanses');
+        $exp = TableRegistry::get('expenses');
         $query = $exp->find();
-        $query->select(['lastID'=> 'max(expanses.id_expanses)']);
+        $query->select(['lastID'=> 'max(expenses.id_expanses)']);
         $last_ID = $query->first();
          if($last_ID->lastID>0){
             $VN = $last_ID->lastID + 1;
@@ -189,14 +190,15 @@ class ExpensesController extends AppController
                 $expanse->shift_id = $row['shift_id'];
                 $expanse->expanse_date = date("Y-m-d H:i:s", strtotime($row['expanse_date'])); 
                 $expanse->created_by = $this->request->session()->read('Auth.User.id'); 
-                $this->Expanses->save($expanse);
-              
+                
+                $this->Expenses->save($expanse);
+                
                 
             }
            
             $msg ='Success|The transaction has been saved.';
         }
-        
+
         
         $this->set(compact('msg'));
         $this->set('_serialize', ['msg']);
@@ -205,12 +207,12 @@ class ExpensesController extends AppController
   
     public function edit($id = null)
     {
-        $expanse = $this->Expanses->get($id, [
+        $expanse = $this->Expenses->get($id, [
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $expanse = $this->Expanses->patchEntity($expanse, $this->request->data);
-            if ($this->Expanses->save($expanse)) {
+            $expanse = $this->Expenses->patchEntity($expanse, $this->request->data);
+            if ($this->Expenses->save($expanse)) {
                 $this->Flash->success(__('The expanse has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -218,7 +220,11 @@ class ExpensesController extends AppController
                 $this->Flash->error(__('The expanse could not be saved. Please, try again.'));
             }
         }
-        $transactionAccounts = $this->Expanses->TransactionAccounts->find('list', ['limit' => 200]);
+        $transactionAccounts = $this->Expenses->TransactionAccounts->find('list', ['limit' => 200]);
+        /*echo "<pre";
+        print_r($transactionAccounts);
+        echo "</pre";
+        exit();*/
         $this->set(compact('expanse', 'transactionAccounts'));
         $this->set('_serialize', ['expanse']);
     }
@@ -228,8 +234,8 @@ class ExpensesController extends AppController
     {
         $id = $this->request->data['id'];
         $this->request->allowMethod(['post', 'delete']);
-        $expanse = $this->Expanses->get($id);
-        if ($this->Expanses->delete($expanse)) {
+        $expanse = $this->Expenses->get($id);
+        if ($this->Expenses->delete($expanse)) {
             $msg = 'Success|The expanse has been deleted.';
         } else {
             $msg = 'Success|The expanse could not be deleted. Please, try again.';
@@ -243,7 +249,7 @@ class ExpensesController extends AppController
     public function getdetails(){
         
         $voucher_no = $this->request->data['vo'];
-        $expansestbl = TableRegistry::get('expanses');
+        $expansestbl = TableRegistry::get('expenses');
         $query = $expansestbl->find('all');
         $query->where(['voucher_number ='=> $voucher_no]);
         $query->hydrate(false);

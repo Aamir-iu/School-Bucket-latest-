@@ -128,6 +128,14 @@
 
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Qualification:</label>
+                        <div class="col-md-10">
+
+                            <input type="text" placeholder="Employee Qualifictaion" class="form-control" name='employee_qualification' value='<?php echo $employee->employee_qualification; ?>' />
+
+                        </div>
+                    </div>
                     
                     <div class="form-group">
                         <label class="control-label col-md-2">Basic Salary:</label>

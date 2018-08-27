@@ -47,6 +47,10 @@
             <td><?= h($employee->employee_phone2) ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('Employee Phone2') ?></th>
+            <td><?= h($employee->employee_qualification) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Employee Pic') ?></th>
             <td><?= h($employee->employee_pic) ?></td>
         </tr>

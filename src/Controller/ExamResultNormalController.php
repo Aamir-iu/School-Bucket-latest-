@@ -183,7 +183,7 @@ class ExamResultNormalController extends AppController
         $Subjects->select(['sub'=>'short_name','sub_desc'=>'subject_desc']);
         $Subjects->where(['class_id'=>$class_id]);
         $Subjects->andwhere(['exam_type_id'=>$session_id]); /// examl_type_id
-        $Subjects->orderAsc('exam_marks_details.registration_id');
+        $Subjects->orderAsc('exam_marks_details.order_id');
         $subjectDetails = $Subjects->toArray();    
         
         $table = TableRegistry::get('exam_result_normal');

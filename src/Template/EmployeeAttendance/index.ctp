@@ -465,6 +465,7 @@
         var department_id = $('#mdepart_id option:selected').val();
 
         var att_date = $('#due_date').val();
+        console.log(att_date);
         var TableData;
         TableData = storeFeeTblValues()
         if (TableData.length > 0) {

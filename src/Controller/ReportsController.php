@@ -75,13 +75,13 @@ class ReportsController extends AppController
          
          /// current days expanses 
          
-        $expansestbl = TableRegistry::get('expanses');
+        $expansestbl = TableRegistry::get('expenses');
                     $query = $expansestbl->find()
                     ->join([
                             [   'table' => 'transaction_account',
                                 'alias' => 'ta',
                                 'type' => 'INNER',
-                                'conditions' => 'expanses.transaction_account_id = ta.id_transaction_account '
+                                'conditions' => 'expenses.transaction_account_id = ta.id_transaction_account '
                              ],
                             [   'table' => 'sub_control_account',
                                 'alias' => 'subaccount',
@@ -511,6 +511,10 @@ class ReportsController extends AppController
   
     $sessiontable = TableRegistry::get('session');
     $session = $sessiontable->find('all');
+    /*echo "<pre>";
+    print_r($session);
+    echo "</pre>";
+    exit();*/
     
     $this->set(compact('session'));
     $this->set('_serialize', ['session']);

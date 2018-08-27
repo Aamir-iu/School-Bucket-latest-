@@ -829,7 +829,7 @@ Please Contact With Department For Details."></textarea>
                     }
                 },
                 "oLanguage": {
-                 "sProcessing": '<img src="https://eschools.cloud/images/loading-spinner-grey.gif">'
+                 "sProcessing": '<img src="img/logo.png">'
                },
                 "columnDefs": [{ // define columns sorting options(by default all columns are sortable extept the first checkbox column)
                     'orderable': false,
@@ -840,6 +840,7 @@ Please Contact With Department For Details."></textarea>
                     [1, "asc"]
                 ], // set first column as a default sort by asc
                 "columns": [
+                        
                         {"data": "registration_id"},
                         {"data": "sname"},
                         {"data": "fname"},

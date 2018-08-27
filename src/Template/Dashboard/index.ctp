@@ -1,6 +1,7 @@
 <?php  $total_students = array(); ?>
 <!-- Main content -->
 <section class="content">
+  <?php  if($this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3 ):   ?> 
     <!-- Info boxes -->
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
@@ -60,6 +61,8 @@
             <!-- /.info-box -->
         </div>
         <!-- /.col -->
+        
+        
     </div>
 <section class="box-panel">   
     <div class="row">
@@ -212,7 +215,10 @@
     <!-- Main row -->
     
     <!-- /.row -->
+    <?php endif; ?>
+    
 </section>
+
 <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->

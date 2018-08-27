@@ -19,9 +19,9 @@
                 <li class="list-group-item">
                     <b>Computer Code : </b> <a class="pull-right"><input type="text" readonly name="cc" value="-" style="border:none;text-align:center;width:100px;"></a>
                 </li>
-                <li class="list-group-item">
+                <!-- <li class="list-group-item">
                    <b>GR# :</b> <a class="pull-right"><input type="text"  name="gr" value="" style="border:solid 1px;text-align:center;width:100px;"></a>
-                </li>
+                </li> -->
                 <li class="list-group-item">
                    <b>Class Roll No :</b> <a class="pull-right"><input type="text"  readonly id="roll_no" name="roll_no" value="" style="border:none;text-align:center;width:100px;"></a>
                 </li>

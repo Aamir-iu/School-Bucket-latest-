@@ -302,11 +302,11 @@ class GradeSettingController extends AppController
                     $rs = array();
                 }
                 //$sec = array();
-                if($sec == ''){
+                /*if($sec == ''){
                     $sec = array();
-                }
+                }*/
 
-                array_push($data, array_merge($row, $arr,$arrgo,$rs,$arrgo2,$sec));
+                array_push($data, array_merge($row, $arr,$arrgo,$rs,$arrgo2));
                    
             }
             

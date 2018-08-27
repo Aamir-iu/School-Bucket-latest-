@@ -44,12 +44,13 @@ th{
           <tr>
               <th style="width:4%;text-align:center;">CC#</th>
               <th style="width:3%;">Roll#</th>
-              <th style="width:3%;">GR#</th>
-              <th style="width:28%;">Student | Father Name</th>
+              <!-- <th style="width:3%;">GR#</th> -->
+              <th style="width:20%;">Student | Father Name</th>
 <!--              <th style="width:15%;">Father Name</th>-->
               <?php for($i = 1; $i<=31; $i++): ?>
               <th style="width:2%;"><?php echo $i; ?></th>
               <?php endfor; ?>
+              <th style="text-align: center;">Percentage</th>
            </tr>
           </thead>
           <tbody>
@@ -58,7 +59,7 @@ th{
                    <tr>
                     <td style="text-align: center;"><?php echo $rows['registration_id'];  ?> </td>
                     <td style="text-align: center;"><?php echo $rows['roll_no'];  ?> </td>
-                    <td style="text-align: center;"><?php echo $rows['grno'];  ?> </td>
+                    <!-- <td style="text-align: center;"><?php echo $rows['grno'];  ?> </td> -->
                        
                        
                       
@@ -104,12 +105,22 @@ th{
                     <td><?php if(isset($rows['d30'])){ echo $rows['d30']; }  ?> </td>
                     <td><?php if(isset($rows['d31'])){ echo $rows['d31']; }  ?> </td>
                     
-                       
-
+                    
+                    <td style="text-align: center;"><?php echo $rows['percentage']."%";  ?></td>
+                    
                    </tr>
+                   
+
              <?php endforeach; ?>
-          
           </tbody>
+          <tr>
+            <th style="text-align: center;" colspan="34">
+              Total Percentage
+            </th>
+            <th style="text-align: center;" >
+              <?php echo $tot."%"; ?>
+            </th>
+          </tr>
         </table>
       </div>
       <!-- /.col -->

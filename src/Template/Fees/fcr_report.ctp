@@ -25,7 +25,7 @@
     <!-- Table row -->
     <div class="row">
       <div class="col-xs-12">
-        <table class="table table-container table-bordered">
+        <table class="ttable table-container table-bordered table-hover">
           <thead>
           <tr>
               <th style="width:10%;">CC# | Roll# | GR#</th>
@@ -57,18 +57,18 @@
                       <td><?php echo $rows['s_name'];  ?> </td>
                       <td><?php echo $rows['f_name'];  ?> </td>
                       
-                      <td><?php $m1 += $rows['m1']; echo $rows['m1'];  ?> </td>
-                      <td><?php $m2 += $rows['m2']; echo $rows['m2'];  ?> </td>
-                      <td><?php $m3 += $rows['m3']; echo $rows['m3'];  ?> </td>
-                      <td><?php $m4 += $rows['m4']; echo $rows['m4'];  ?> </td>
-                      <td><?php $m5 += $rows['m5']; echo $rows['m5'];  ?> </td>
-                      <td><?php $m6 += $rows['m6']; echo $rows['m6'];  ?> </td>
-                      <td><?php $m7 += $rows['m7']; echo $rows['m7'];  ?> </td>
-                      <td><?php $m8 += $rows['m8']; echo $rows['m8'];  ?> </td>
-                      <td><?php $m9 += $rows['m9']; echo $rows['m9'];  ?> </td>
-                      <td><?php $m10 += $rows['m10']; echo $rows['m10'];  ?> </td>
-                      <td><?php $m11 += $rows['m11']; echo $rows['m11'];  ?> </td>
-                      <td><?php $m12 += $rows['m12']; echo $rows['m12'];  ?> </td>
+                      <td><?php echo $rows['m1']; $m1 += $rows['m1']; ?> </td>
+                      <td><?php echo $rows['m2']; $m2 += $rows['m2']; ?> </td>
+                      <td><?php echo $rows['m3']; $m3 += $rows['m3']; ?> </td>
+                      <td><?php echo $rows['m4']; $m4 += $rows['m4']; ?> </td>
+                      <td><?php echo $rows['m5']; $m5 += $rows['m5']; ?> </td>
+                      <td><?php echo $rows['m6']; $m6 += $rows['m6']; ?> </td>
+                      <td><?php echo $rows['m7']; $m7 += $rows['m7']; ?> </td>
+                      <td><?php echo $rows['m8']; $m8 += $rows['m8']; ?> </td>
+                      <td><?php echo $rows['m9']; $m9 += $rows['m9']; ?> </td>
+                      <td><?php echo $rows['m10'];$m10 += $rows['m10'];  ?> </td>
+                      <td><?php echo $rows['m11'];$m11 += $rows['m11'];  ?> </td>
+                      <td><?php echo $rows['m12'];$m12 += $rows['m12'];  ?> </td>
                       
                       
                       

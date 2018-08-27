@@ -7,19 +7,19 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Expanses Model
+ * expenses Model
  *
  * @property \Cake\ORM\Association\BelongsTo $TransactionAccounts
  *
- * @method \App\Model\Entity\Expanse get($primaryKey, $options = [])
- * @method \App\Model\Entity\Expanse newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Expanse[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Expanse|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Expanse patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Expanse[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Expanse findOrCreate($search, callable $callback = null)
+ * @method \App\Model\Entity\expense get($primaryKey, $options = [])
+ * @method \App\Model\Entity\expense newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\expense[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\expense|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\expense patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\expense[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\expense findOrCreate($search, callable $callback = null)
  */
-class ExpansesTable extends Table
+class ExpensesTable extends Table
 {
 
     /**
@@ -32,7 +32,7 @@ class ExpansesTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('expanses');
+        $this->table('expenses');
         $this->displayField('id_expanses');
         $this->primaryKey('id_expanses');
 

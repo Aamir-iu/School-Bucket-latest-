@@ -61,7 +61,7 @@ class StudentAttendanceController extends AppController
         $action = $this->request->params['action'];
 
         // The add and index actions are always allowed.
-        if (in_array($action, ['index', 'add', 'getstudents', 'view','delete','sendsms','attendancereport','setting'])&& $this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3 || $this->request->session()->read('Auth.User.role_id')==5 || $this->request->session()->read('Auth.User.role_id')==6) {
+        if (in_array($action, ['index', 'add', 'getstudents', 'view','delete','sendsms','attendancereport','setting'])&& $this->request->session()->read('Auth.User.role_id')==1 || $this->request->session()->read('Auth.User.role_id')==2 || $this->request->session()->read('Auth.User.role_id')==3) {
             return true;
         }
         // All other actions require an id.
@@ -140,6 +140,7 @@ class StudentAttendanceController extends AppController
             $reg_result->andwhere(['registration.active'=>'Y']);
             $reg_result->orderAsc('roll_no');
             $sql = $reg_result->toArray();
+
  
            // $temp_att_table = TableRegistry::get('temp_attendance'); 
          //   $temp_att_table->query()->delete()->execute();
@@ -167,15 +168,47 @@ class StudentAttendanceController extends AppController
             $rs = $query->toArray();
          
          
-            
+                $query = $table->find();
+                $query->select(['present' => $query->func()->count('status')]);
+                $query->where(['registration_id'=>$row['registration_id']]);
+                $query->andwhere(['MONTH(attendace_date) =' => $date]);
+                $query->andwhere(['status' => 'P']);
+                $present = $query->first();
+                if(count($present->present) > 0){
+                    $att_data = $present->present;
+                }else{
+                    $att_data = 0;
+                }
+            $count = 0;
             foreach($rs as $rows){
                 $day =  'd'.ltrim(date('d', strtotime($rows['date'])),'0');
                 $mdata[$row['registration_id']][$day] = $rows['status'];
+                //$mdata[$row['registration_id']][$day] = $rows['status'];
+                    if( isset($rows['status']) > 0)
+                    {
+                        $count++;
+                    }
+
                 }    
+                $mdata[$row['registration_id']]['days'] = $count;  
+                $mdata[$row['registration_id']]['present'] = $att_data;
+                if ($count > 0) {
+                 # code...
 
+                $att = round($att_data/$count* 100,0);
+                $mdata[$row['registration_id']]['percentage'] = $att;
+                $data[] = $att;
+                }
+
+
+
+                  
             }
+            $tot = 0;
+            $tot = round(array_sum($data)/ count($data),2);
+            
 
-            $this->set(compact('mdata','class','shift'));
+            $this->set(compact('mdata','class','shift','tot'));
             $this ->render('att_report'); 
             
        }

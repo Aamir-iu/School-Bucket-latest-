@@ -232,7 +232,7 @@ class DashboardController extends AppController
          
          /// yeaster days expanses 
          $yesterday = date('Y-m-d',(strtotime ( '-1 day' , strtotime ($date)) ));
-         $expansesbl = TableRegistry::get('expanses');
+         $expansesbl = TableRegistry::get('expenses');
          $query   = $expansesbl->find();
          $query->select(['expanse' => $query->func()->sum('amount'),'status']);
          $query->where(['expanse_date'=>date("Y-m-d H:i:s", strtotime($yesterday))]);
@@ -246,7 +246,7 @@ class DashboardController extends AppController
          
          
           /// this month expanses 
-         $expansesbl = TableRegistry::get('expanses');
+         $expansesbl = TableRegistry::get('expenses');
          $query   = $expansesbl->find();
          $query->select(['expanse' => $query->func()->sum('amount'),'status']);
          $query->where(['MONTH(expanse_date)' => $month]);
@@ -311,7 +311,7 @@ class DashboardController extends AppController
         
         $month_exp_collection =  array();
         for($i = 1; $i <= 12;  $i++){
-        $tbl = TableRegistry::get('expanses');
+        $tbl = TableRegistry::get('expenses');
         $query = $tbl->find();
         $query->select(['expanses' => $query->func()->sum('amount')]);
         $query->where(['status'=>1]);
@@ -497,7 +497,7 @@ class DashboardController extends AppController
         $sql_fee_type->where(['status_active'=>'Y']);
         $query = $sql_fee_type->toArray();
         $feestbl = TableRegistry::get('fees');
-        $expansestbl = TableRegistry::get('expanses');
+        $expansestbl = TableRegistry::get('expenses');
         
         $data = array();
         foreach($query as $row){
@@ -522,7 +522,7 @@ class DashboardController extends AppController
                     [   'table' => 'transaction_account',
                         'alias' => 'ta',
                         'type' => 'INNER',
-                        'conditions' => 'expanses.transaction_account_id = ta.id_transaction_account '
+                        'conditions' => 'expenses.transaction_account_id = ta.id_transaction_account '
                      ],
                     [   'table' => 'sub_control_account',
                         'alias' => 'subaccount',

@@ -286,10 +286,10 @@ class FeesController extends AppController
                     }
               
             }    
-            echo "<pre>";
+            /*echo "<pre>";
             print_r($mdata);
             echo "</pre>";
-            exit(); 
+            exit(); */
               
            
             $this->set(compact('mdata','moonth_names','fee_type','class','shift'));

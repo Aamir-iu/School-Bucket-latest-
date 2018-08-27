@@ -28,9 +28,9 @@
                 <li class="list-group-item">
                     <b>Computer Code : </b> <a class="pull-right"><input type="text" readonly name="cc" value="<?= $registration->id_registration ?>" style="border:none;text-align:center;width:100px;"></a>
                 </li>
-                <li class="list-group-item">
+                <!-- <li class="list-group-item">
                    <b>GR# :</b> <a class="pull-right"><input type="text"  name="gr" value="<?= $registration->gr ?>" style="border:none;text-align:center;width:100px;"></a>
-                </li>
+                </li> -->
                 <li class="list-group-item">
                    <b>Class Roll No :</b> <a class="pull-right"><input type="text"  name="roll_no" id="roll_no" value="<?php echo $registration->students_master_details[0]['roll_no']; ?>" style="border:none;text-align:center;width:100px;"></a>
                 </li>
