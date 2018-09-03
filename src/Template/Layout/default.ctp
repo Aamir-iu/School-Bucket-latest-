@@ -690,6 +690,12 @@ $cakeDescription = 'Online School Management System';
                  <?= $this->Html->link(__('Attendance'), ['controller' => 'StudentAttendance', 'action' => 'index']) ?>
             </li>
              <?php endif; ?>
+              <!-- short Attendance routes -->
+             <?php  if(isset($att['Attendance']) && $att['Attendance'] === 'Yes'): ?>  
+            <li <?php if($this->request->param('controller')==='ShortAttendance' && $this->request->param('action')==='index' ){echo 'class="active"';} ?>>
+                 <?= $this->Html->link(__('Short Attendance'), ['controller' => 'ShortAttendance', 'action' => 'index']) ?>
+            </li>
+             <?php endif; ?> 
             <!-- <?php  if(isset($att['Attendance Report']) && $att['Attendance Report'] === 'Yes'): ?> 
             
             <li <?php if($this->request->param('controller')==='StudentAttendance' && $this->request->param('action')==='attendancereport' ){echo 'class="active"';} ?>>
@@ -700,6 +706,7 @@ $cakeDescription = 'Online School Management System';
           
         </li>
          <?php endif; ?>
+
             
  
           </ul>
@@ -1127,12 +1134,7 @@ $cakeDescription = 'Online School Management System';
                  <?= $this->Html->link(__('Messages/SMS Setting'), ['controller' => 'GeneralSetting', 'action' => 'smssetting']) ?>
             </li>
              <?php endif; ?>
-             <!-- holidays routes -->
-             <!-- <?php  if(isset($General['Messages/SMS Setting']) && $General['Messages/SMS Setting'] === 'Yes'): ?>   
-            <li <?php if($this->request->param('controller')==='GeneralSetting' && $this->request->param('action')==='smssetting' ){echo 'class="active"';} ?>>
-                 <?= $this->Html->link(__('Holiday'), ['controller' => 'Holiday', 'action' => 'index']) ?>
-            </li>
-             <?php endif; ?> -->
+          
 
               
             
@@ -1174,7 +1176,7 @@ $cakeDescription = 'Online School Management System';
         </li>
       <?php endif; ?> 
 
-      <!-- <?php  if(!empty($this->request->session()->read('menu.Tools'))):   ?>
+       <?php  if(!empty($this->request->session()->read('menu.Tools'))):   ?>
         <?php  $tools =  $this->request->session()->read('menu.Tools'); ?>
         <li <?php if($this->request->param('controller')==='Tools' && $this->request->param('action')!=='updateapp')  {echo 'class="active"';} ?>>
           <a href="#">
@@ -1198,7 +1200,7 @@ $cakeDescription = 'Online School Management System';
           </ul>
               
         </li>
-    <?php endif; ?> -->       
+    <?php endif; ?>       
 
        
     <?php  if(!empty($this->request->session()->read('menu.SMS'))):   ?> 

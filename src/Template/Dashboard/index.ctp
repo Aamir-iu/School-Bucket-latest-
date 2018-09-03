@@ -133,7 +133,7 @@
         <div class="box-mang col">
             
                 <div class="info-box-icon-mg">
-                  <a href="account-voucher/financialstatements" >
+                  <a href="fees/feecollection" >
                     <span class="fa fa-line-chart"></span>
                   <p class="info-box-text">Finance Management</p>   
                   </a>
@@ -196,7 +196,44 @@
         </div> -->
          
 </div>
-</section>
+<!-- </section>
+    <section style="margin: 5px;">
+    <div class="col-md-6">
+                   
+            <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Short Attendance</h3>
+            </div>
+            
+            <div class="box-body no-padding"  id="atid">
+              <table class="table table-condensed">
+                <tr>
+                  <th>Roll</th>
+                  <th>Student Name</th>
+                  <th style="width: 40px">Class</th>
+                </tr>
+                
+                <?php foreach($mdata as $row): ?>
+                  
+                    <tr>
+
+                      <?php if ( $row['percentage'] < 70  ) {
+                        # code...
+                      ?>
+                      <td><?php echo $row['registration_id'];  ?></td>
+                      <td><?php echo $row['s_name']; ?></td>
+                      <td><?php echo $row['class_name']; ?></td>
+                    <?php  } ?>
+                    </tr>
+                <?php endforeach; ?>
+                
+              </table>
+            </div>
+            
+           
+          </div>
+    </div>
+  </section> -->
 
              <!-- /.box-header -->
           

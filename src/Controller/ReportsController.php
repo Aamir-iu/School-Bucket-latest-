@@ -511,11 +511,6 @@ class ReportsController extends AppController
   
     $sessiontable = TableRegistry::get('session');
     $session = $sessiontable->find('all');
-    /*echo "<pre>";
-    print_r($session);
-    echo "</pre>";
-    exit();*/
-    
     $this->set(compact('session'));
     $this->set('_serialize', ['session']);
         

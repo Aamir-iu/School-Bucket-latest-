@@ -2,6 +2,8 @@
 namespace App\Controller;
 use Cake\ORM\TableRegistry;
 use App\Controller\AppController;
+use Cake\I18n\Time;
+use Cake\I18n\Date;
 
 /**
  * StudentAttendance Controller
@@ -111,6 +113,8 @@ class StudentAttendanceController extends AppController
             $class = $this->request->data['class_id'];
             $shift = $this->request->data['shift_id'];
             $date = $this->request->data['date_range'];
+            //$date = date('m',(strtotime ( '-1 MONTH' ) ));
+                    //print_r($date);
             
             
        
@@ -140,6 +144,10 @@ class StudentAttendanceController extends AppController
             $reg_result->andwhere(['registration.active'=>'Y']);
             $reg_result->orderAsc('roll_no');
             $sql = $reg_result->toArray();
+                /*echo "<pre>";
+                print_r($sql);
+                echo "</pre>";
+                exit();*/
 
  
            // $temp_att_table = TableRegistry::get('temp_attendance'); 
@@ -180,10 +188,10 @@ class StudentAttendanceController extends AppController
                     $att_data = 0;
                 }
             $count = 0;
+            $data[] = 0;
             foreach($rs as $rows){
                 $day =  'd'.ltrim(date('d', strtotime($rows['date'])),'0');
                 $mdata[$row['registration_id']][$day] = $rows['status'];
-                //$mdata[$row['registration_id']][$day] = $rows['status'];
                     if( isset($rows['status']) > 0)
                     {
                         $count++;
@@ -191,22 +199,27 @@ class StudentAttendanceController extends AppController
 
                 }    
                 $mdata[$row['registration_id']]['days'] = $count;  
-                $mdata[$row['registration_id']]['present'] = $att_data;
-                if ($count > 0) {
+                $mdata[$row['registration_id']]['present'] = $att_data;                
+                $mdata[$row['registration_id']]['percentage'] = 0;
+                if ($count > 0 ) {
                  # code...
-
-                $att = round($att_data/$count* 100,0);
-                $mdata[$row['registration_id']]['percentage'] = $att;
-                $data[] = $att;
+                    $att = round($att_data/$count* 100,0);
+                    $mdata[$row['registration_id']]['percentage'] = $att;
+                    $data[] = $att;
                 }
 
-
+                    
 
                   
             }
+                // echo "<pre>";
+                // print_r($mdata);
+                // echo "</pre>";
+                //exit();
             $tot = 0;
+            if($data > 0 ){
             $tot = round(array_sum($data)/ count($data),2);
-            
+        }
 
             $this->set(compact('mdata','class','shift','tot'));
             $this ->render('att_report'); 
@@ -606,5 +619,7 @@ class StudentAttendanceController extends AppController
        $this->set(compact('registration','classes','session','campuses','months'));
   
     }
+    
    
 }
+
